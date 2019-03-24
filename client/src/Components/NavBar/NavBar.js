@@ -1,31 +1,49 @@
-import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Navbar, NavItem, SideNav, SideNavItem, Button } from 'react-materialize';
+import './NavBar.css';
 import auth0Client from '../../Auth';
 
-function NavBar(props) {
-  const signOut = () => {
+class NavBar extends Component {
+
+  signOut = () => {
     auth0Client.signOut();
-    props.history.replace('/');
+    this.props.history.replace('/');
   };
 
-  return (
-    <nav className="navbar navbar-dark bg-primary fixed-top">
-      <Link className="navbar-brand" to="/">
-        BlissfulBeauty
-      </Link>
-      {
-        !auth0Client.isAuthenticated() &&
-        <button className="btn btn-dark" onClick={auth0Client.signIn}>Sign In</button>
-      }
-      {
-        auth0Client.isAuthenticated() &&
-        <div>
-          <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
-          <button className="btn btn-dark" onClick={() => { signOut() }}>Sign Out</button>
-        </div>
-      }
-    </nav>
-  );
-}
+  rightNavs = () => {
+    if (auth0Client.isAuthenticated()){
+    return (
+      <div>
+        <SideNavItem>Logged in as:</SideNavItem>
+        <SideNavItem>{auth0Client.getProfile().name}</SideNavItem>
+        <Button onClick={() => this.signOut()}>Logout</Button>
+      </div>
+    )};
+    return (
+      <Button onClick={auth0Client.signIn}>Sign in</Button>
+    )
+  };
 
-export default withRouter(NavBar);
+  render() {
+    return(
+      <div>
+        <Navbar id='NavBar' brand='BlissfulBeauty' left>
+          <SideNav
+            trigger={<Button>Menu</Button>}
+            options={{ closeOnClick: true }}
+          >  
+          {this.rightNavs()}
+            <SideNavItem divider />
+            <SideNavItem href='#!icon' icon='cloud'>Services</SideNavItem>
+            <SideNavItem href='#!second'>Book an Appointment</SideNavItem>
+            <SideNavItem divider />
+            <SideNavItem subheader>Gallery</SideNavItem>
+            <SideNavItem waves href='#!third'>View Photos</SideNavItem>
+          </SideNav>
+        </Navbar>
+      </div>
+    )
+  }
+};
+
+export default NavBar;

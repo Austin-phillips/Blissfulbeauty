@@ -5,8 +5,8 @@ const images = require('./images');
 
 const router = Router();
 
-router.use('/services', services);
-router.use('/appointments', appointments);
-router.use('/images', images);
+router.use('/api/services', services);
+router.use('/api/appointments', appointments);
+router.use('/api/images', images);
 
 module.exports = router;

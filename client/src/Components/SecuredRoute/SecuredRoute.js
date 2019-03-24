@@ -13,6 +13,6 @@ function SecuredRoute(props) {
       return <Component />
     }} />
   );
-}
+};
 
 export default SecuredRoute;

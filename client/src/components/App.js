@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
-import NavBar from './Components/NavBar/NavBar';
-import Callback from './Callback';
-import SecuredRoute from './Components/SecuredRoute/SecuredRoute';
-import auth0Client from './Auth';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import NavBar from './NavBar/NavBar';
+import Callback from '../Callback';
+import SecuredRoute from './SecuredRoute/SecuredRoute';
+import auth0Client from '../Auth';
+import Home from './Home/Home';
 
 class App extends Component {
   constructor(props) {
@@ -26,14 +27,18 @@ class App extends Component {
     }
     this.setState({ checkingSession: false });
   }
+
   render() {
     return (
       <div>
         <NavBar />
-        <Route exact path='/callback' component={Callback} />
-        {/* <SecuredRoute path='/new-question'
-          component={NewQuestion}
-          checkingSession={this.state.checkingSession} /> */}
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route exact path='/callback' component={Callback} />
+          {/* <SecuredRoute path='/new-question'
+            component={NewQuestion}
+            checkingSession={this.state.checkingSession} /> */}
+        </Switch>
       </div>
     );
   }
