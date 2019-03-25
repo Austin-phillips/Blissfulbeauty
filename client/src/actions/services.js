@@ -1,13 +1,10 @@
 import axios from 'axios';
 import { setFlash } from './flash';
-
-const setServices = (services) => {
-  return { type: 'GET_SERVICES', services }
-}
+import { BASE_URL } from '../Secrets/env';
 
 export const getServices = () => {
   return dispatch => {
-    axios.get('/api/services')
+    axios.get(`${BASE_URL}/api/services`)
       .then(res => {
         dispatch({ type: 'GET_SERVICES', services: res.data})
       })

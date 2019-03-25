@@ -5,6 +5,7 @@ import Callback from '../Callback';
 import SecuredRoute from './SecuredRoute/SecuredRoute';
 import auth0Client from '../Auth';
 import Home from './Home/Home';
+import Service from './Services/Services';
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class App extends Component {
         <NavBar />
         <Switch>
           <Route exact path='/' component={Home}/>
+          <Route exact path='/services' component={Service}/>
           <Route exact path='/callback' component={Callback} />
           {/* <SecuredRoute path='/new-question'
             component={NewQuestion}

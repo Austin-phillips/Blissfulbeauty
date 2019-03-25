@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import auth0Client from '../../Auth';
+import { Link, withRouter } from 'react-router-dom';
 import { Navbar, NavItem, SideNav, SideNavItem, Button } from 'react-materialize';
 import './NavBar.css';
-import auth0Client from '../../Auth';
 
 class NavBar extends Component {
 
@@ -40,14 +41,14 @@ class NavBar extends Component {
       <div>
         <Navbar id='NavBar' brand='BlissfulBeauty' left>
           <SideNav
-            trigger={<Button>Menu</Button>}
+            trigger={<div id='MenuButtonContainer'><Button id='MenuButton'>Menu</Button></div>}
             options={{ closeOnClick: true }}
           >  
           {this.rightNavs()}
             <SideNavItem divider />
-            <SideNavItem href='#!icon' icon='spa'>Services</SideNavItem>
-            <SideNavItem href='#!second' icon='book'>Book an Appointment</SideNavItem>
-            <SideNavItem waves href='#!third' icon='collections'>View Photos</SideNavItem>
+            <SideNavItem icon='spa'><Link to='/services'>Services</Link></SideNavItem>
+            <SideNavItem icon='book'><Link to='/services'>Appointments</Link></SideNavItem>
+            <SideNavItem icon='collections'><Link to='/services'>Photo Gallery</Link></SideNavItem>
             {auth0Client.isAuthenticated() ? this.adminNav() : null}
           </SideNav>
         </Navbar>
@@ -56,4 +57,4 @@ class NavBar extends Component {
   }
 };
 
-export default NavBar;
+export default withRouter(NavBar);

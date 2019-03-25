@@ -1,3 +1,19 @@
-#NavBar {
-  background-color: #28666E !important;
+:root {
+  --color1: rgba(124, 137, 139, 1); 
+  --color2: rgba(99, 101, 100, 1); 
+  --color3: rgba(175, 117, 149, 1); 
+  --color4: rgba(208, 204, 208, 1); 
+  --color5: rgba(251, 252, 255, 1); 
 }
+
+#NavBar {
+  background-color: var(--color2) !important;
+}
+
+#MenuButton {
+  background-color: var(--color4) !important;
+}
+
+#MenuButtonContainer {
+  padding-top: 1px;
+};
