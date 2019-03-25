@@ -1,12 +1,13 @@
 import auth0 from 'auth0-js';
+import { AUTH0_DOMAIN, AUTH0_CLIENT_ID} from './Secrets/env';
 
 class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
-      domain: 'blissfulbeauty.auth0.com',
-      audience: 'https://blissfulbeauty.auth0.com/userinfo',
-      clientID: '2P4jGYBO2iDzaYPqCJEzwyWm3Y94Pi3c',
+      domain: AUTH0_DOMAIN,
+      audience: `https://${AUTH0_DOMAIN}/userinfo`,
+      clientID: AUTH0_CLIENT_ID,
       redirectUri: 'http://localhost:3000/callback',
       responseType: 'id_token',
       scope: 'openid profile'
@@ -17,23 +18,23 @@ class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-  }
+  };
 
   getProfile() {
     return this.profile;
-  }
+  };
 
   getIdToken() {
     return this.idToken;
-  }
+  };
 
   isAuthenticated() {
     return new Date().getTime() < this.expiresAt;
-  }
+  };
 
   signIn() {
     this.auth0.authorize();
-  }
+  };
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {
@@ -45,22 +46,22 @@ class Auth {
         this.setSession(authResult);
         resolve();
       });
-    })
-  }
+    });
+  };
 
   setSession(authResult) {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
     // set the time that the id token will expire at
     this.expiresAt = authResult.idTokenPayload.exp * 1000;
-  }
+  };
 
   signOut() {
     this.auth0.logout({
       returnTo: 'http://localhost:3000',
-      clientID: '2P4jGYBO2iDzaYPqCJEzwyWm3Y94Pi3c',
+      clientID: AUTH0_CLIENT_ID,
     });
-  }
+  };
 
   silentAuth() {
     return new Promise((resolve, reject) => {
@@ -70,8 +71,8 @@ class Auth {
         resolve();
       });
     });
-  }
-}
+  };
+};
 
 const auth0Client = new Auth();
 

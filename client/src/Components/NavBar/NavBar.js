@@ -24,6 +24,17 @@ class NavBar extends Component {
     )
   };
 
+  adminNav = () => {
+    const profile = auth0Client.getProfile();
+    const role = profile['https://example.com/roles']
+
+    if (role[0] === 'admin') {
+      return(
+        <SideNavItem waves href='#!third' icon='view_agenda'>View Schedule</SideNavItem>
+      );
+    };
+  };
+
   render() {
     return(
       <div>
@@ -34,11 +45,10 @@ class NavBar extends Component {
           >  
           {this.rightNavs()}
             <SideNavItem divider />
-            <SideNavItem href='#!icon' icon='cloud'>Services</SideNavItem>
-            <SideNavItem href='#!second'>Book an Appointment</SideNavItem>
-            <SideNavItem divider />
-            <SideNavItem subheader>Gallery</SideNavItem>
-            <SideNavItem waves href='#!third'>View Photos</SideNavItem>
+            <SideNavItem href='#!icon' icon='spa'>Services</SideNavItem>
+            <SideNavItem href='#!second' icon='book'>Book an Appointment</SideNavItem>
+            <SideNavItem waves href='#!third' icon='collections'>View Photos</SideNavItem>
+            {auth0Client.isAuthenticated() ? this.adminNav() : null}
           </SideNav>
         </Navbar>
       </div>
