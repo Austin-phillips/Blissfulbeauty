@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import './NavBar.css'
 import auth0Client from '../../Auth';
+import MenuSlide from './Menu'
 
 const styles = {
   root: {
@@ -70,11 +71,11 @@ class NavBar extends React.Component {
       <div className={classes.root}>
         <AppBar id='NavBar' position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            <MenuSlide />
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              BlissfulBeauty
+              <div id='NavBrand'>
+                BlissfulBeauty
+              </div>
             </Typography>
             {auth && (
               <div>
