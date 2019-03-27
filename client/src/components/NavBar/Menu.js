@@ -17,6 +17,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ScheduleIcon from '@material-ui/icons/Book';
 import { Link, withRouter } from 'react-router-dom';
 import auth0Client from '../../Auth';
+import { ROLE_URL } from '../../Secrets/env';
 
 
 const styles = {
@@ -76,7 +77,7 @@ class Menu extends React.Component {
 
   handleAdmin = () => {
     const profile = auth0Client.getProfile();
-    const role = profile['https://example.com/roles'];
+    const role = profile[ROLE_URL];
 
     if (role[0] === 'admin'){
       return(

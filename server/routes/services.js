@@ -36,7 +36,7 @@ router.post('/', checkJwt, (request, response, next) => {
   const { name, price, description, time } = request.body;
 
   pool.query(
-    'INSERT INTO services(name, price, description, time) VALUES($1, $2, $3, $4)',
+    'INSERT INTO services(name, price, description, length) VALUES($1, $2, $3, $4)',
     [ name, price, description, time ],
     (err, res) => {
       if (err) return next(err);
@@ -49,10 +49,10 @@ router.post('/', checkJwt, (request, response, next) => {
 // Edit service
 router.put('/:id', checkJwt, (request, response, next) => {
   const { id } = request.params;
-  const { name, price, description, time } = request.body;
+  const { name, price, description, length } = request.body;
 
   pool.query(
-    'UPDATE services SET name=($1), price=($2), description=($3), time=($4) WHERE id=($5)',
+    'UPDATE services SET name=($1), price=($2), description=($3), length=($4) WHERE id=($5)',
     [ name, price, description, time, id ],
     (err, res) => {
       if (err) return next(err);

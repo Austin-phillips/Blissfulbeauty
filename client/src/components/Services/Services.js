@@ -1,40 +1,38 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getServices } from '../../actions/services'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import ServiceCard from './ServiceCard';
+import Typography from '@material-ui/core/Typography';
+import './Service.css';
 
-class Service extends Component {
-  state = { loading: true}
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  header: {
+    marginTop: '25px',
+  }
+});
 
-  componentDidMount() {
-    this.props.dispatch(getServices())
-  };
+function Services(props) {
+  const { classes } = props;
 
-  setServices = () => {
-    const { services } = this.props;
-
-    return services.map( s => {
-      return(
-        <ul key={s.id}>
-          <li>Name: {s.name}</li>
-          <li>Description: {s.description}</li>
-          <li>Price: ${s.price}.00</li>
-        </ul>
-      )
-    })
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>Services</h1>
-        {this.setServices()}
-      </div>
-    );
-  };
-};
-
-const mapStateToProps = (state) => {
-  return { services: state.services }
+  return (
+    <div className={classes.root}>
+      <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+        Services
+      </Typography>      <Grid container spacing={24}>
+        <Grid item xs={12}>
+          <ServiceCard />
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
 
-export default connect(mapStateToProps)(Service);
+Services.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Services);

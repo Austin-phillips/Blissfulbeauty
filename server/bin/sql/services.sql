@@ -3,11 +3,11 @@ CREATE TABLE services(
   name        VARCHAR(50),
   price       FLOAT,
   description VARCHAR(150),
-  time        VARCHAR(50)
+  length      INT
 );
 
-INSERT INTO services(name, price, description, time)
+INSERT INTO services(name, price, description, length)
 VALUES
-('Haircut', 7.00, 'best haircut', '7:00 AM'),
-('Lazer hair removal', 10.00, 'get rid of that hair', '8:00 AM'),
-('Eyelashes', 15.00, 'lets get you looking pretty', '9:00 AM');
+('Haircut', 7.00, 'best haircut', 90),
+('Lazer hair removal', 10.00, 'get rid of that hair', 60),
+('Eyelashes', 15.00, 'lets get you looking pretty', 30 );

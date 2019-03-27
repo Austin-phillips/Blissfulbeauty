@@ -6,6 +6,10 @@ import SecuredRoute from './SecuredRoute/SecuredRoute';
 import auth0Client from '../Auth';
 import Home from './Home/Home';
 import Service from './Services/Services';
+import Appointments from './Appointments/Appointments';
+import Gallery from './Gallery/Gallery';
+import Schedule from './Schedule/Schedule';
+import UpdateService from './Services/UpdateService';
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +40,10 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route exact path='/services' component={Service}/>
+          <SecuredRoute exact path='/appointments' component={Appointments} checkingSession={this.state.checkingSession}/>
+          <Route exact path='/gallery' component={Gallery}/>
+          <Route exact path='/schedule' component={Schedule}/>
+          <Route exact path='/services/:id' component={UpdateService}/>
           <Route exact path='/callback' component={Callback} />
           {/* <SecuredRoute path='/new-question'
             component={NewQuestion}
