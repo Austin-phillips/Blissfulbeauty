@@ -33,16 +33,17 @@ router.get('/:uid', (request, response, next) => {
 
 // Create new appointment
 router.post('/', (request, response, next) => {
-  const { date, time, notes, service, first, last, email, length, uid, price } = request.body;
-
+  const { date, time, notes, service, first, last, email, length, uid, price } = request.body.appointment;
+  console.log(request.body.appointment.length)
   pool.query(
     `INSERT INTO appointments(date, time, notes, service, first, last, email, length, uid, price) 
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8 ,$9)`,
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8 ,$9, $10)
+    RETURNING *`,
     [ date, time, notes, service, first, last, email, length, uid, price ],
     (err, res) => {
       if (err) return next(err);
 
-      response.redirect(`/appointments/${uid}`);
+      response.json(res.rows);
     }
   );
 });

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import AppointmentForm from '../Appointments/AppointmentForm';
+import auth0Client from '../../Auth';
 
 
 
@@ -48,7 +49,10 @@ class ServiceModal extends React.Component {
 
     return (
       <div>
-        <Button onClick={this.handleOpen}>Book Appointment</Button>
+        {!auth0Client.isAuthenticated() ? 
+          <Button onClick={() => auth0Client.signIn()}>Sign In to Book</Button> :
+          <Button onClick={this.handleOpen}>Book Appointment</Button>
+          }
         <Modal
           open={this.state.open}
           onClose={this.handleClose}

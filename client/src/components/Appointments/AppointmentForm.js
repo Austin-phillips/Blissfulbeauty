@@ -5,11 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
 import auth0Client from '../../Auth';
 import './Appointment.css'
+import { addAppointment } from '../../actions/appointments';
+import moment from 'moment';
 
 const styles = theme => ({
   container: {
@@ -54,12 +56,13 @@ class AppointmentForm extends React.Component {
   state = { service: this.props.service.name,
             price: this.props.service.price, 
             length: this.props.service.length,
-            date: new Date('2014-08-18T21:11:54'),
+            date: null,
             time:'',
             first: '',
             last: '',
             email: auth0Client.getProfile().email,
-            uid: auth0Client.getProfile().sub
+            uid: auth0Client.getProfile().sub,
+            notes: ''
           };
 
   handleChange = name => event => {
@@ -67,7 +70,13 @@ class AppointmentForm extends React.Component {
   };
 
   handleDateChange = date => {
-    this.setState({ date: date });
+    available.forEach((time) => {
+      if (time.disabled === true) {
+        time['disabled'] = false
+      }
+    })
+    this.setState({ date: moment(date).format('MMMM Do YYYY') });
+    this.HandleDisabled(date)
   };
 
   HandleDisabled = (date) => {
@@ -75,17 +84,17 @@ class AppointmentForm extends React.Component {
 
     appointments.forEach((app) => available.forEach((time, index, array) => {
       if (app.date === date && app.time === time['text']) {
-        if (app.length === '1 Hour') {
+        if (app.length === 60) {
           var hour = array[index + 1]
           time['disabled'] = true
           hour['disabled'] = true
-        } else if (app.length === '1.5 Hours') {
+        } else if (app.length === 90) {
           var hour = array[index + 1]
           var hourhalf = array[index + 2]
           time['disabled'] = true
           hour['disabled'] = true
           hourhalf['disabled'] = true
-        } else if (app.length === '2 Hours') {
+        } else if (app.length === 120) {
           var hour = array[index + 1]
           var hourhalf = array[index + 2]
           var twohour = array[index + 3]
@@ -93,7 +102,7 @@ class AppointmentForm extends React.Component {
           hour['disabled'] = true
           hourhalf['disabled'] = true
           twohour['disabled'] = true
-        } else if (app.length === '2.5 Hours') {
+        } else if (app.length === 180) {
           var hour = array[index + 1]
           var hourhalf = array[index + 2]
           var twohour = array[index + 3]
@@ -108,6 +117,13 @@ class AppointmentForm extends React.Component {
         }
       }
     }))
+  }
+
+  handleSubmit = (e) => {
+    const { dispatch } = this.props;
+    const { first, last, date, time, service, email, notes, length, uid, price } = this.state;
+    dispatch(addAppointment({ first, last, date, time, service, email, notes, length, uid, price }));
+    this.setState({ modalOpen: false })
   }
 
 
@@ -183,7 +199,7 @@ class AppointmentForm extends React.Component {
           />
         </MuiPickersUtilsProvider>
         <TextField
-          id="standard-select-currency"
+          id="standard-required"
           select
           label="Select"
           className={classes.textField}
@@ -203,6 +219,7 @@ class AppointmentForm extends React.Component {
             </MenuItem>
           ))}
         </TextField>
+        <Button onClick={() => this.handleSubmit()}>Book Now</Button>
       </form>
     );
   }
@@ -212,4 +229,8 @@ AppointmentForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AppointmentForm);
+const mapStateToProps = (state) => {
+  return { appointments: state.appointments}
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(AppointmentForm));

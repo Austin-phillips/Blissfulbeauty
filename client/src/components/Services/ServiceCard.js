@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { getServices, deleteService } from '../../actions/services';
+import { getAppointments } from '../../actions/appointments';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -28,7 +29,10 @@ const styles = {
 class ServiceCard extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(getServices())
+    const { dispatch } = this.props;
+    dispatch(getServices())
+    dispatch(getAppointments())
+    
   };
 
   deleteService = (id) => {
