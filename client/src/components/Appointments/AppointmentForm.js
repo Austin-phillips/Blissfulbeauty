@@ -56,7 +56,7 @@ class AppointmentForm extends React.Component {
   state = { service: this.props.service.name,
             price: this.props.service.price, 
             length: this.props.service.length,
-            date: null,
+            selectedDate: null,
             time:'',
             first: '',
             last: '',
@@ -69,21 +69,21 @@ class AppointmentForm extends React.Component {
     this.setState({ [name]: event.target.value });
   };
 
-  handleDateChange = date => {
+  handleDateChange = selectedDate => {
     available.forEach((time) => {
       if (time.disabled === true) {
         time['disabled'] = false
       }
     })
-    this.setState({ date: moment(date).format('MMMM Do YYYY') });
-    this.HandleDisabled(date)
+    this.setState({ selectedDate: selectedDate });
+    this.HandleDisabled(selectedDate)
   };
 
   HandleDisabled = (date) => {
     const { appointments } = this.props;
 
     appointments.forEach((app) => available.forEach((time, index, array) => {
-      if (app.date === date && app.time === time['text']) {
+      if (app.date === moment(date).format("M/D/YY") && app.time === time['text']) {
         if (app.length === 60) {
           var hour = array[index + 1]
           time['disabled'] = true
@@ -121,7 +121,8 @@ class AppointmentForm extends React.Component {
 
   handleSubmit = (e) => {
     const { dispatch } = this.props;
-    const { first, last, date, time, service, email, notes, length, uid, price } = this.state;
+    const { first, last, selectedDate, time, service, email, notes, length, uid, price } = this.state;
+    const date = moment(selectedDate).format("M/D/YY")
     dispatch(addAppointment({ first, last, date, time, service, email, notes, length, uid, price }));
     this.setState({ modalOpen: false })
   }
@@ -129,7 +130,7 @@ class AppointmentForm extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { date, service, price, length, email } = this.state;
+    const { selectedDate, service, price, length, email } = this.state;
 
     return (
       <form className={classes.container} noValidate autoComplete="off">
@@ -194,7 +195,7 @@ class AppointmentForm extends React.Component {
           <DatePicker
             margin="normal"
             label="Date picker"
-            value={date}
+            value={selectedDate}
             onChange={this.handleDateChange}
           />
         </MuiPickersUtilsProvider>
