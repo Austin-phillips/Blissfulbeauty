@@ -10,6 +10,7 @@ import Appointments from './Appointments/Appointments';
 import Gallery from './Gallery/Gallery';
 import Schedule from './Schedule/Schedule';
 import UpdateService from './Services/UpdateService';
+import Flash from './Flash/Flash';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class App extends Component {
     return (
       <div>
         <NavBar />
+        <Flash />
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route exact path='/services' component={Service}/>

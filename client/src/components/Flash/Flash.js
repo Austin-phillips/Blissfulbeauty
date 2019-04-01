@@ -1,34 +1,57 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearFlash } from '../actions/flash';
+import { clearFlash } from '../../actions/flash';
+import green from '@material-ui/core/colors/green';
+import SnackBar from './SnackBar';
 
-const fadeFlash = dispatch => {
-  setTimeout(() => {
-    dispatch(clearFlash());
-  }, 15000);
-};
+const styles1 = theme => ({
+  success: {
+    backgroundColor: green[600],
+  },
 
-const Flash = ({ flash, dispatch }) => {
-  if (flash.message) {
-    return (
-      <div></div>
-      // <Container>
-      //   <Message
-      //     onDismiss={() => dispatch(clearFlash())}
-      //     color={flash.color}
-      //   >
-      //     <Header as='h5' textAlign='center'>{flash.message}</Header>
-      //     {fadeFlash(dispatch)}
-      //   </Message>
-      // </Container>
-    );
+  message: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
+
+class Flash extends React.Component {
+  state = {
+    vertical: 'top',
+    horizontal: 'center'
+  };
+
+  fadeFlash = () => {
+    setTimeout(() => {
+      this.props.dispatch(clearFlash());
+    }, 15000);
   }
-  return null;
-};
+
+  displayFlash = () => { 
+    const { open, vertical, horizontal } = this.state;
+    const { flash } = this.props;
+    this.fadeFlash()
+    return(
+      <SnackBar flash={flash} />
+    )
+  };
+
+  render() {
+    const { vertical, horizontal, open } = this.state;
+    const { flash } = this.props;
+    if (flash.message)
+      return (
+        <div>
+          {this.displayFlash()}
+        </div>
+      )
+     else 
+      return null
+  };
+}
 
 const mapStateToProps = state => {
-  const { flash } = state;
-  return { flash };
+  return { flash: state.flash };
 };
 
 export default connect(mapStateToProps)(Flash);

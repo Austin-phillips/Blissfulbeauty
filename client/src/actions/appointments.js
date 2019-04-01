@@ -9,7 +9,7 @@ export const getAppointments = () => {
         dispatch({ type: 'GET_APPOINTMENTS', appointments: res.data })
       })
       .catch(err => {
-        dispatch(setFlash('Error loading appointments, please try again.', 'red'))
+        dispatch(setFlash('Error loading appointments, please try again.', 'error'))
       })
   }
 }
@@ -21,7 +21,7 @@ export const updateService = (appointment, id, history) => {
         dispatch({ type: 'UPDATE_APPOINTMENT', appointment: res.data, headers: res.headers })
       })
       .catch(err => {
-        dispatch(setFlash('Failed to update appointment', 'red'))
+        dispatch(setFlash('Failed to update appointment', 'error'))
       })
   }
 }
@@ -33,7 +33,7 @@ export const deleteAppointment = (id) => {
         dispatch({ type: 'DELETE_APPOINTMENT', id, headers: res.headers });
       })
       .catch(err => {
-        dispatch(setFlash('Error Deleting Appointment. Try Again,', 'red'));
+        dispatch(setFlash('Error Deleting Appointment. Try Again,', 'error'));
       });
   }
 }
@@ -43,9 +43,10 @@ export const addAppointment = (appointment) => {
     axios.post(`${BASE_URL}/api/appointments`, { appointment })
       .then(res => {
         dispatch({ type: 'ADD_APPOINTMENT', appointment: res.data })
+        dispatch(setFlash('Thanks for booking.', 'success'))
       })
       .catch(err => {
-        dispatch(setFlash('Failed to add appointment', 'red'))
+        dispatch(setFlash('Failed to add appointment', 'error'))
       })
   }
 }

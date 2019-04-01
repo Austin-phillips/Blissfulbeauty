@@ -1,5 +1,5 @@
-export const setFlash = (message, color) => {
-  return { type: 'SET_FLASH', message, color };
+export const setFlash = (message, variant) => {
+  return { type: 'SET_FLASH', message, variant };
 };
 
 export const clearFlash = () => {

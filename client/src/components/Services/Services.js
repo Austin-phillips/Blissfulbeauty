@@ -22,7 +22,8 @@ function Services(props) {
     <div className={classes.root}>
       <Typography className={classes.header} align='center' variant="h2" gutterBottom>
         Services
-      </Typography>      <Grid container spacing={24}>
+      </Typography> 
+      <Grid container spacing={24}>
         <Grid item xs={12}>
           <ServiceCard />
         </Grid>

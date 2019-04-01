@@ -41,24 +41,29 @@ class ServiceCard extends React.Component {
       this.props.dispatch(deleteService(id))
   }
 
-  adminButtons = (id) => {
+  handleButtons = (service) => {
     const profile = auth0Client.getProfile()
     const role = profile[ROLE_URL]
 
     if (role[0] === 'admin') {
       return (
         <div>
-          <Link to={`/services/${id}`}>
-            <Button id='UpdateButton' size="small">
-              Update Appointment
-            </Button>
-          </Link>
-          <Button onClick={() => this.deleteService(id)} id='DeleteButton' size="small">
+          <ServiceModal service={service} />
+          <Button id='UpdateButton' size="small">
+            Update Appointment
+          </Button>
+          <Button onClick={() => this.deleteService(service.id)} id='DeleteButton' size="small">
             Delete Appointment
           </Button>
         </div>
       )
-    };
+    } else {
+      return (
+        <div>
+          <ServiceModal service={service} />
+        </div>
+      )
+    }
 
   };
 
@@ -85,8 +90,7 @@ class ServiceCard extends React.Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <ServiceModal service={s} />
-            {auth0Client.isAuthenticated() ? this.adminButtons(s.id) : null}
+            {auth0Client.isAuthenticated() ? this.handleButtons(s) : null}
           </CardActions>
         </Card>
       )
