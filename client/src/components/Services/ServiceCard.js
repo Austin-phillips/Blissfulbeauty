@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import { getServices, deleteService } from '../../actions/services';
-import { getAppointments } from '../../actions/appointments';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import './Service.css';
 import auth0Client from '../../Auth';
-import { ROLE_URL } from '../../Secrets/env';
 import ServiceModal from './ServiceModal';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Create';
+import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/core/styles';
+import { ROLE_URL } from '../../Secrets/env';
+import { getServices, deleteService } from '../../actions/services';
+import { getAppointments } from '../../actions/appointments';
+import './Service.css';
 
 const styles = {
   card: {
@@ -31,8 +33,7 @@ class ServiceCard extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getServices())
-    dispatch(getAppointments())
-    
+    dispatch(getAppointments())    
   };
 
   deleteService = (id) => {
@@ -42,19 +43,20 @@ class ServiceCard extends React.Component {
   }
 
   handleButtons = (service) => {
-    const profile = auth0Client.getProfile()
+    const { user } = this.props;
+    const profile = user.profile
     const role = profile[ROLE_URL]
 
     if (role[0] === 'admin') {
       return (
         <div>
           <ServiceModal service={service} />
-          <Button id='UpdateButton' size="small">
-            Update Appointment
-          </Button>
-          <Button onClick={() => this.deleteService(service.id)} id='DeleteButton' size="small">
-            Delete Appointment
-          </Button>
+          <IconButton aria-label="Edit">
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={() => this.deleteService(service.id)} aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
         </div>
       )
     } else {
@@ -68,8 +70,7 @@ class ServiceCard extends React.Component {
   };
 
   serviceCard = () => {
-    const { classes } = this.props;
-    const { services } = this.props;
+    const { classes, user, services } = this.props;
     return services.map(s => {
       return(
         <Card id='ServiceCard' key={s.id} className={classes.card}>
@@ -90,7 +91,10 @@ class ServiceCard extends React.Component {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            {auth0Client.isAuthenticated() ? this.handleButtons(s) : null}
+            { user.isAuthenticated ? 
+              this.handleButtons(s) : 
+              <Button onClick={() => auth0Client.signIn()}>Sign In to Book</Button>
+            }
           </CardActions>
         </Card>
       )
@@ -112,7 +116,7 @@ ServiceCard.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { services: state.services}
+  return { services: state.services, user: state.user}
 }
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(ServiceCard)));
+export default connect(mapStateToProps)(withStyles(styles)(ServiceCard));

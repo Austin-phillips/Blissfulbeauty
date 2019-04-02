@@ -1,25 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { clearFlash } from '../../actions/flash';
-import green from '@material-ui/core/colors/green';
 import SnackBar from './SnackBar';
 
-const styles1 = theme => ({
-  success: {
-    backgroundColor: green[600],
-  },
-
-  message: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-});
-
 class Flash extends React.Component {
-  state = {
-    vertical: 'top',
-    horizontal: 'center'
-  };
 
   fadeFlash = () => {
     setTimeout(() => {
@@ -28,7 +12,6 @@ class Flash extends React.Component {
   }
 
   displayFlash = () => { 
-    const { open, vertical, horizontal } = this.state;
     const { flash } = this.props;
     this.fadeFlash()
     return(
@@ -37,7 +20,6 @@ class Flash extends React.Component {
   };
 
   render() {
-    const { vertical, horizontal, open } = this.state;
     const { flash } = this.props;
     if (flash.message)
       return (

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,7 +15,6 @@ import PhotoIcon from '@material-ui/icons/PhotoLibrary'
 import HomeIcon from '@material-ui/icons/Home';
 import ScheduleIcon from '@material-ui/icons/Book';
 import { Link, withRouter } from 'react-router-dom';
-import auth0Client from '../../Auth';
 import { ROLE_URL } from '../../Secrets/env';
 
 
@@ -76,7 +74,8 @@ class Menu extends React.Component {
   };
 
   handleAdmin = () => {
-    const profile = auth0Client.getProfile();
+    const { user } = this.props;
+    const profile = user.profile;
     const role = profile[ROLE_URL];
 
     if (role[0] === 'admin'){
@@ -92,13 +91,13 @@ class Menu extends React.Component {
             </ListItem>
           </Link>
         </div>
-
       )
-    }
+    } else
+    return null
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
 
     const sideList = (
       <div className={classes.list}>
@@ -114,7 +113,7 @@ class Menu extends React.Component {
               )
             })
           }
-          {auth0Client.isAuthenticated() ? this.handleAdmin() : null }
+          {user.isAuthenticated ? this.handleAdmin() : null }
         </List>
       </div>
     );

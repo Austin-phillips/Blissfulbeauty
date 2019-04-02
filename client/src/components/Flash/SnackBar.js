@@ -103,7 +103,7 @@ class CustomizedSnackbars extends React.Component {
   }
 
   render() {
-    const { classes, flash } = this.props;
+    const { flash } = this.props;
     const { open } = this.state;
     return (
       <div>

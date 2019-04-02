@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import auth0Client from '../../Auth';
 import moment from 'moment';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { addAppointment } from '../../actions/appointments';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import './Service.css'
 
 function getModalStyle() {
   const top = 50;
@@ -81,8 +80,8 @@ class ServiceModal extends React.Component {
     time: '',
     first: '',
     last: '',
-    email: auth0Client.getProfile().email,
-    uid: auth0Client.getProfile().sub,
+    email: this.props.user.profile.email,
+    uid: this.props.user.profile.sub,
     notes: '',
     messageOpen: false
   };
@@ -113,30 +112,25 @@ class ServiceModal extends React.Component {
     const { appointments } = this.props;
 
     appointments.forEach((app) => available.forEach((time, index, array) => {
+      var hour = array[index + 1]
+      var hourhalf = array[index + 2]
+      var twohour = array[index + 3]
+      var twohourhalf = array[index + 4]
+
       if (app.date === moment(date).format("M/D/YY") && app.time === time['text']) {
         if (app.length === 60) {
-          var hour = array[index + 1]
           time['disabled'] = true
           hour['disabled'] = true
         } else if (app.length === 90) {
-          var hour = array[index + 1]
-          var hourhalf = array[index + 2]
           time['disabled'] = true
           hour['disabled'] = true
           hourhalf['disabled'] = true
         } else if (app.length === 120) {
-          var hour = array[index + 1]
-          var hourhalf = array[index + 2]
-          var twohour = array[index + 3]
           time['disabled'] = true
           hour['disabled'] = true
           hourhalf['disabled'] = true
           twohour['disabled'] = true
         } else if (app.length === 180) {
-          var hour = array[index + 1]
-          var hourhalf = array[index + 2]
-          var twohour = array[index + 3]
-          var twohourhalf = array[index + 4]
           time['disabled'] = true
           hour['disabled'] = true
           hourhalf['disabled'] = true
@@ -164,7 +158,7 @@ class ServiceModal extends React.Component {
 
     return (
       <div>
-          <Button onClick={this.handleOpen}>Book Appointment</Button>
+          <Button id='bookButton' onClick={this.handleOpen}>Book Appointment</Button>
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
@@ -259,8 +253,8 @@ class ServiceModal extends React.Component {
                 ))}
               </TextField>
             </form>
-              <Button onClick={() => this.setState({ open: false})}>Cancel</Button>
-              <Button onClick={() => this.handleSubmit()}>Book Now</Button>
+              <Button id='cancelButton' onClick={() => this.setState({ open: false})}>Cancel</Button>
+              <Button id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
           </div>
         </Modal>
       </div>
@@ -273,7 +267,7 @@ ServiceModal.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return { appointments: state.appointments}
+  return { appointments: state.appointments, user: state.user}
 }
 
 // We need an intermediary variable for handling the recursive nesting.

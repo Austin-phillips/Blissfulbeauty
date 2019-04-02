@@ -33,8 +33,9 @@ class Auth {
   };
 
   signIn() {
-    this.auth0.authorize();
-  };
+    this.auth0.authorize()
+  }
+    
 
   handleAuthentication() {
     return new Promise((resolve, reject) => {

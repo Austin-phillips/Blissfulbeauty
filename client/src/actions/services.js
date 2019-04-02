@@ -34,6 +34,7 @@ export const deleteService = (id) => {
         dispatch(setFlash('Successfully removed service', 'success'));
       })
       .catch(err => {
+        console.log('Error:', err)
         dispatch(setFlash('Error Deleting Service. Try Again,', 'error'));
       });
   }
@@ -47,18 +48,6 @@ export const addService = (service) => {
       })
       .catch(err => {
         dispatch(setFlash('Failed to add service', 'error'))
-      })
-  }
-}
-
-export const getSingleService = (id) => {
-  return dispatch => {
-    axios.get(`${BASE_URL}/api/services/${id}`)
-      .then(res => {
-        dispatch({ type: 'GET_SINGLESERVICE', service: res.data })
-      })
-      .catch(err => {
-        dispatch(setFlash('Error loading service, please try again.', 'error'))
       })
   }
 }

@@ -15,6 +15,17 @@
   margin-right: 8px;
 }
 
-#BookButton {
-  background-color: rgba(0, 128, 0, 0.596);
+#bookButton {
+  background-color: #2196f3;
+  margin: 5px 5px 5px 5px;
+}
+
+#submitButton {
+  background-color: #2196f3;
+  margin: 5px 5px 5px 5px;
+}
+
+#cancelButton {
+  background-color: #f44336;
+  margin: 5px 5px 5px 5px;
 }

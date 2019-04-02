@@ -5,13 +5,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import './NavBar.css'
 import auth0Client from '../../Auth';
 import MenuSlide from './Menu'
+import { clearUser } from '../../actions/user';
+import { connect } from 'react-redux';
 
 const styles = {
   root: {
@@ -44,13 +45,19 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleSignin = () => {
+    auth0Client.signIn()
+  }
+
   signOut = () => {
+    this.props.dispatch(clearUser())
     auth0Client.signOut();
     this.props.history.replace('/');
   };
 
   rightNavs = () => {
-    if (auth0Client.isAuthenticated()) {
+    const { isAuthenticated } = this.props.user
+    if (isAuthenticated) {
       return (
       <div>
         <MenuItem onClick={this.handleClose}>My account</MenuItem>
@@ -58,12 +65,12 @@ class NavBar extends React.Component {
       </div>
       )}
       return (
-        <MenuItem onClick={ () => auth0Client.signIn()}>Sign In</MenuItem>
+        <MenuItem onClick={ () => this.handleSignin()}>Sign In</MenuItem>
       )
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -71,7 +78,7 @@ class NavBar extends React.Component {
       <div className={classes.root}>
         <AppBar id='NavBar' position="static">
           <Toolbar>
-            <MenuSlide />
+            <MenuSlide user={user} />
             <Typography variant="h6" color="inherit" className={classes.grow}>
               <div id='NavBrand'>
                 BlissfulBeauty
@@ -79,7 +86,7 @@ class NavBar extends React.Component {
             </Typography>
             {auth && (
               <div>
-                { auth0Client.isAuthenticated() ? auth0Client.getProfile().name : null }
+                { user.isAuthenticated ? user.profile.name : null}
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
                   aria-haspopup="true"
@@ -117,4 +124,8 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar);
+const mapStateToProps = (state) => {
+  return { user: state.user}
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(NavBar));
