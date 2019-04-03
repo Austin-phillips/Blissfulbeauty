@@ -33,15 +33,15 @@ router.get('/:id', (request, response, next) => {
 
 // Create new service
 router.post('/', (request, response, next) => {
-  const { name, price, description, time } = request.body;
+  const { name, price, description, length } = request.body.service;
 
   pool.query(
-    'INSERT INTO services(name, price, description, length) VALUES($1, $2, $3, $4)',
-    [ name, price, description, time ],
+    'INSERT INTO services(name, price, description, length) VALUES($1, $2, $3, $4) RETURNING *',
+    [ name, price, description, length ],
     (err, res) => {
       if (err) return next(err);
 
-      response.redirect('/services');
+      response.json(res.rows);
     }
   );
 });

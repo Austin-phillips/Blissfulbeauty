@@ -5,6 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import ServiceCard from './ServiceCard';
 import Typography from '@material-ui/core/Typography';
 import './Service.css';
+import { ROLE_URL } from '../../Secrets/env';
+import { connect } from 'react-redux';
+import CreateService from './CreateService';
 
 const styles = theme => ({
   root: {
@@ -16,7 +19,9 @@ const styles = theme => ({
 });
 
 function Services(props) {
-  const { classes } = props;
+  const { classes, user } = props;
+  const profile = user.profile
+  const role = user.isAuthenticated ? profile[ROLE_URL] : null
 
   return (
     <div className={classes.root}>
@@ -25,6 +30,7 @@ function Services(props) {
       </Typography> 
       <Grid container spacing={24}>
         <Grid item xs={12}>
+          {user.isAuthenticated && role[0] === 'admin' ? <CreateService /> : null}
           <ServiceCard />
         </Grid>
       </Grid>
@@ -36,4 +42,8 @@ Services.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Services);
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Services));

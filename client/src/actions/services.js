@@ -45,7 +45,8 @@ export const addService = (service) => {
   return (dispatch) => {
     axios.post(`${BASE_URL}/api/services`, { service })
       .then(res => {
-        dispatch({ type: 'ADD_SERVICE', service: res.data, headers: res.headers })
+        dispatch({ type: 'ADD_SERVICE', service: service, headers: res.headers })
+        dispatch(setFlash('Successfully Added Service.', 'success'));
       })
       .catch(err => {
         dispatch(setFlash('Failed to add service', 'error'))

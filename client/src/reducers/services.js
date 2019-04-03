@@ -3,7 +3,7 @@ const services = (state = [], action) => {
     case 'GET_SERVICES':
       return action.services
     case 'ADD_SERVICE':
-      return [action.service, ...state]
+      return [...state, action.service]
     case 'UPDATE_SERVICE':
       return state.map(s => {
         if (s.id === action.id)
