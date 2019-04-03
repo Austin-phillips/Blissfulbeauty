@@ -6,7 +6,7 @@ const services = (state = [], action) => {
       return [action.service, ...state]
     case 'UPDATE_SERVICE':
       return state.map(s => {
-        if (s.id === action.service.id)
+        if (s.id === action.id)
           return action.service
         return s
       })

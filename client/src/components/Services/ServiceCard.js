@@ -8,15 +8,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import auth0Client from '../../Auth';
 import ServiceModal from './ServiceModal';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Create';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { ROLE_URL } from '../../Secrets/env';
-import { getServices, deleteService } from '../../actions/services';
+import { getServices } from '../../actions/services';
 import { getAppointments } from '../../actions/appointments';
 import './Service.css';
+import UpdateService from './UpdateService';
 
 const styles = {
   card: {
@@ -36,12 +34,6 @@ class ServiceCard extends React.Component {
     dispatch(getAppointments())    
   };
 
-  deleteService = (id) => {
-    const deleted = window.confirm('Are you sure you want to delete?')
-    if (deleted)
-      this.props.dispatch(deleteService(id))
-  }
-
   handleButtons = (service) => {
     const { user } = this.props;
     const profile = user.profile
@@ -51,12 +43,7 @@ class ServiceCard extends React.Component {
       return (
         <div>
           <ServiceModal service={service} />
-          <IconButton aria-label="Edit">
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={() => this.deleteService(service.id)} aria-label="Delete">
-            <DeleteIcon />
-          </IconButton>
+          <UpdateService service={service} />
         </div>
       )
     } else {

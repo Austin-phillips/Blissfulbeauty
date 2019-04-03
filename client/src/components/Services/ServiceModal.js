@@ -83,7 +83,6 @@ class ServiceModal extends React.Component {
     email: this.props.user.profile.email,
     uid: this.props.user.profile.sub,
     notes: '',
-    messageOpen: false
   };
 
   handleOpen = () => {
@@ -91,7 +90,8 @@ class ServiceModal extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, first: '', last: '', selectedDate: null, time: '' });
+
   };
 
   handleChange = name => event => {
@@ -143,13 +143,39 @@ class ServiceModal extends React.Component {
     }))
   }
 
+  submitButton = () => {
+    const { first, last, time, selectedDate } = this.state;
+    const button = <Button disabled id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
+    if (first === '') {
+      return (
+        button
+      )
+    } else if ( last === '') {
+      return (
+        button
+      )
+    } else if ( selectedDate === null) {
+      return (
+        button
+      )
+    } else if ( time === '') {
+      return (
+        button
+      )
+    } else {
+      return (
+        <Button id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
+      )
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
     const { dispatch } = this.props;
     const { first, last, selectedDate, time, service, email, notes, length, uid, price } = this.state;
     const date = moment(selectedDate).format("M/D/YY")
     dispatch(addAppointment({ first, last, date, time, service, email, notes, length, uid, price }));
-    this.setState({ open: false })
+    this.setState({ open: false, first: '', last: '', selectedDate: null, time: '' });
   }
 
   render() {
@@ -253,8 +279,8 @@ class ServiceModal extends React.Component {
                 ))}
               </TextField>
             </form>
-              <Button id='cancelButton' onClick={() => this.setState({ open: false})}>Cancel</Button>
-              <Button id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
+              <Button id='cancelButton' onClick={() => this.handleClose()}>Cancel</Button>
+              {this.submitButton()}
           </div>
         </Modal>
       </div>

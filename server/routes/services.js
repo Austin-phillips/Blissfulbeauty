@@ -32,7 +32,7 @@ router.get('/:id', (request, response, next) => {
 });
 
 // Create new service
-router.post('/', checkJwt, (request, response, next) => {
+router.post('/', (request, response, next) => {
   const { name, price, description, time } = request.body;
 
   pool.query(
@@ -47,32 +47,32 @@ router.post('/', checkJwt, (request, response, next) => {
 });
 
 // Edit service
-router.put('/:id', checkJwt, (request, response, next) => {
+router.put('/:id', (request, response, next) => {
   const { id } = request.params;
-  const { name, price, description, length } = request.body;
+  const { name, price, description, length } = request.body.service;
 
   pool.query(
-    'UPDATE services SET name=($1), price=($2), description=($3), length=($4) WHERE id=($5)',
-    [ name, price, description, time, id ],
+    'UPDATE services SET name=($1), price=($2), description=($3), length=($4) WHERE id=($5) RETURNING *',
+    [ name, price, description, length, id ],
     (err, res) => {
       if (err) return next(err);
 
-      response.redirect('/services');
+      response.json(res.rows);
     }
   );
 });
 
 // Delete service
-router.delete('/:id', checkJwt, (request, response, next) => {
+router.delete('/:id', (request, response, next) => {
   const { id } = request.params;
 
   pool.query(
-    'DELETE FROM services WHERE id = $1',
+    'DELETE FROM services WHERE id = $1 RETURNING *',
     [ id ],
     (err, res) => {
       if (err) return next(err);
 
-      response.redirect('/services');
+      response.json(res.rows);
     }
   );
 });

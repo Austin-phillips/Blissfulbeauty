@@ -34,7 +34,6 @@ router.get('/:uid', (request, response, next) => {
 // Create new appointment
 router.post('/', (request, response, next) => {
   const { date, time, notes, service, first, last, email, length, uid, price } = request.body.appointment;
-  console.log(request.body.appointment.length)
   pool.query(
     `INSERT INTO appointments(date, time, notes, service, first, last, email, length, uid, price) 
     VALUES($1, $2, $3, $4, $5, $6, $7, $8 ,$9, $10)

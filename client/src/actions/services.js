@@ -18,7 +18,8 @@ export const updateService = (service, id, history) => {
   return (dispatch) => {
     axios.put(`${BASE_URL}/api/services/${id}`, { service })
       .then(res => {
-        dispatch({ type: 'UPDATE_SERVICE', service: res.data, headers: res.headers })
+        dispatch({ type: 'UPDATE_SERVICE', service: service, id: id, headers: res.headers })
+        dispatch(setFlash('Successfully Updated Service.', 'success'))
       })
       .catch(err => {
         dispatch(setFlash('Failed to update service', 'error'))
