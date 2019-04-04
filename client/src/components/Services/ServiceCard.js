@@ -8,13 +8,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import auth0Client from '../../Auth';
 import ServiceModal from './ServiceModal';
+import UpdateService from './UpdateService';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { ROLE_URL } from '../../Secrets/env';
 import { getServices } from '../../actions/services';
 import { getAppointments } from '../../actions/appointments';
 import './Service.css';
-import UpdateService from './UpdateService';
 
 const styles = {
   card: {
@@ -27,6 +29,9 @@ const styles = {
 };
 
 class ServiceCard extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -41,20 +46,27 @@ class ServiceCard extends React.Component {
 
     if (role[0] === 'admin') {
       return (
-        <div>
+        <div key={service.id}>
           <ServiceModal service={service} />
           <UpdateService service={service} />
         </div>
       )
     } else {
       return (
-        <div>
+        <div key={service.id}>
           <ServiceModal service={service} />
         </div>
       )
     }
 
   };
+
+  signIn = () => {
+    const { cookies, location } = this.props;
+    const pathname = location;
+    cookies.set('pathname', `${pathname}`, { path: '/'})
+    auth0Client.signIn()
+  }
 
   serviceCard = () => {
     const { classes, user, services } = this.props;
@@ -80,7 +92,7 @@ class ServiceCard extends React.Component {
           <CardActions>
             { user.isAuthenticated ? 
               this.handleButtons(s) : 
-              <Button onClick={() => auth0Client.signIn()}>Sign In to Book</Button>
+              <Button onClick={() => this.signIn()}>Sign In to Book</Button>
             }
           </CardActions>
         </Card>
@@ -106,4 +118,4 @@ const mapStateToProps = (state) => {
   return { services: state.services, user: state.user}
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(ServiceCard));
+export default withCookies(connect(mapStateToProps)(withStyles(styles)(ServiceCard)));

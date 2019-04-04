@@ -7,12 +7,15 @@ import { Provider } from 'react-redux';
 import {store, persistor} from './store';
 import * as serviceWorker from './serviceWorker';
 import { PersistGate } from 'redux-persist/integration/react'
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <CookiesProvider >
+          <App />
+        </CookiesProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>

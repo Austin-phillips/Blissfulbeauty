@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 
 function Services(props) {
-  const { classes, user } = props;
+  const { classes, user, location } = props;
   const profile = user.profile
   const role = user.isAuthenticated ? profile[ROLE_URL] : null
 
@@ -31,7 +31,7 @@ function Services(props) {
       <Grid container spacing={24}>
         <Grid item xs={12}>
           {user.isAuthenticated && role[0] === 'admin' ? <CreateService /> : null}
-          <ServiceCard />
+          <ServiceCard location={location.pathname} />
         </Grid>
       </Grid>
     </div>

@@ -8,11 +8,13 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import './NavBar.css'
 import auth0Client from '../../Auth';
 import MenuSlide from './Menu'
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import { clearUser } from '../../actions/user';
 import { connect } from 'react-redux';
+import './NavBar.css'
 
 const styles = {
   root: {
@@ -28,6 +30,10 @@ const styles = {
 };
 
 class NavBar extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   state = {
     auth: true,
     anchorEl: null,
@@ -45,7 +51,11 @@ class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  handleSignin = () => {
+  signIn = () => {
+    const { cookies } = this.props;
+    const currentRouteName = window.location.pathname
+    const pathname = currentRouteName;
+    cookies.set('pathname', `${pathname}`, { path: '/' })
     auth0Client.signIn()
   }
 
@@ -60,12 +70,11 @@ class NavBar extends React.Component {
     if (isAuthenticated) {
       return (
       <div>
-        <MenuItem onClick={this.handleClose}>My account</MenuItem>
         <MenuItem onClick={() => this.signOut()}>Sign Out</MenuItem>
       </div>
       )}
       return (
-        <MenuItem onClick={ () => this.handleSignin()}>Sign In</MenuItem>
+        <MenuItem onClick={ () => this.signIn()}>Sign In</MenuItem>
       )
   }
 
@@ -128,4 +137,4 @@ const mapStateToProps = (state) => {
   return { user: state.user}
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(NavBar));
+export default withCookies(connect(mapStateToProps)(withStyles(styles)(NavBar)));
