@@ -42,7 +42,7 @@ export const addAppointment = (appointment) => {
   return (dispatch) => {
     axios.post(`${BASE_URL}/api/appointments`, { appointment })
       .then(res => {
-        dispatch({ type: 'ADD_APPOINTMENT', appointment: res.data })
+        dispatch({ type: 'ADD_APPOINTMENT', appointment: appointment })
         dispatch(setFlash('Thanks for booking.', 'success'))
       })
       .catch(err => {

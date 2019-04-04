@@ -3,7 +3,7 @@ const appointments = (state = [], action) => {
     case 'GET_APPOINTMENTS':
       return action.appointments
     case 'ADD_APPOINTMENT':
-      return [action.appointment, ...state]
+      return [...state, action.appointment]
     case 'UPDATE_APPOINTMENT':
       return state.map(s => {
         if (s.id === action.appointment.id)

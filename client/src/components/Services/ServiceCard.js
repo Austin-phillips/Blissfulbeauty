@@ -92,7 +92,7 @@ class ServiceCard extends React.Component {
           <CardActions>
             { user.isAuthenticated ? 
               this.handleButtons(s) : 
-              <Button onClick={() => this.signIn()}>Sign In to Book</Button>
+              <Button id='bookButton' onClick={() => this.signIn()}>Sign In to Book</Button>
             }
           </CardActions>
         </Card>
