@@ -170,7 +170,6 @@ class ServiceModal extends React.Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault()
     const { dispatch } = this.props;
     const { first, last, selectedDate, time, service, email, notes, length, uid, price } = this.state;
     const date = moment(selectedDate).format("M/D/YY")
