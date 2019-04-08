@@ -15,6 +15,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import { clearUser } from '../../actions/user';
 import { connect } from 'react-redux';
 import './NavBar.css'
+import { clearUserAppointments } from '../../actions/appointments';
 
 const styles = {
   root: {
@@ -61,6 +62,7 @@ class NavBar extends React.Component {
 
   signOut = () => {
     this.props.dispatch(clearUser())
+    this.props.dispatch(clearUserAppointments())
     auth0Client.signOut();
     this.props.history.replace('/');
   };

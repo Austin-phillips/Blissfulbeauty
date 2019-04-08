@@ -1,7 +1,11 @@
 const appointments = (state = [], action) => {
   switch (action.type) {
     case 'GET_APPOINTMENTS':
-      return action.appointments
+    if (action.appointments.length === 0) {
+      return { any: false, appointments: action.appointments }
+    } else {
+      return { any: true, appointments: action.appointments }
+    }
     case 'ADD_APPOINTMENT':
       return [...state, action.appointment]
     case 'UPDATE_APPOINTMENT':

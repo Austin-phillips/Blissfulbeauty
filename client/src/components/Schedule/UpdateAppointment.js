@@ -7,11 +7,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Create';
 import { addAppointment } from '../../actions/appointments';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import './Service.css'
 
 function getModalStyle() {
   const top = 50;
@@ -70,20 +71,20 @@ const available = [
   { key: '14', text: '4:30 PM', value: '4:30 PM', disabled: false },
 ]
 
-class ServiceModal extends React.Component {
+class UpdateAppointment extends React.Component {
   state = {
     open: false,
-    service: this.props.service.name,
-    price: this.props.service.price,
-    length: this.props.service.length,
-    selectedDate: null,
-    time: '',
-    first: '',
-    last: '',
-    email: this.props.user.profile.email,
-    uid: this.props.user.profile.sub,
-    notes: '',
-    number: ''
+    service: this.props.appointment.service,
+    price: this.props.appointment.price,
+    length: this.props.appointment.length,
+    selectedDate: this.props.appointment.date,
+    time: this.props.appointment.time,
+    first: this.props.appointment.first,
+    last: this.props.appointment.last,
+    email: this.props.appointment.email,
+    uid: this.props.appointment.uid,
+    notes: this.props.appointment.notes,
+    number: this.props.appointment.number
   };
 
   handleOpen = () => {
@@ -91,7 +92,7 @@ class ServiceModal extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false, first: '', last: '', selectedDate: null, time: '', number: '' });
+    this.setState({ open: false });
 
   };
 
@@ -144,41 +145,6 @@ class ServiceModal extends React.Component {
     }))
   }
 
-  submitButton = () => {
-    const { first, last, time, selectedDate, number } = this.state;
-    const button = <Button disabled id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
-    if (first === '') {
-      return (
-        button
-      )
-    } else if ( last === '') {
-      return (
-        button
-      )
-    } else if ( selectedDate === null) {
-      return (
-        button
-      )
-    } else if ( time === '') {
-      return (
-        button
-      )
-    } else if ( number === '') {
-      return (
-        button
-      )
-    } else if (number.match((/[a-z]/i))) {
-      return (
-        button
-      )
-    }
-    else {
-      return (
-        <Button id='submitButton' onClick={() => this.handleSubmit()}>Book Now</Button>
-      )
-    }
-  }
-
   handleSubmit = (e) => {
     const { dispatch } = this.props;
     const { first, last, selectedDate, time, service, email, notes, length, uid, price, number } = this.state;
@@ -190,23 +156,25 @@ class ServiceModal extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { selectedDate, service, price, length, email } = this.state;
+    const { service, price, length, selectedDate, time, first, last, email, uid, notes, number } = this.state;
 
     return (
       <div>
-          <Button id='bookButton' onClick={this.handleOpen}>Book Appointment</Button>
+        <IconButton onClick={this.handleOpen} aria-label="Edit">
+          <EditIcon />
+        </IconButton>
         <Modal
           open={this.state.open}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant='h5' align='center'>Please fill out the form</Typography>
+            <Typography variant='h5' align='center'>Appointment Information</Typography>
             <form className={classes.container} noValidate autoComplete="off">
               <TextField
                 id="standard-required"
                 label="First Name"
                 className={classes.textField}
-                value={this.state.first}
+                value={first}
                 onChange={this.handleChange('first')}
                 margin="normal"
               />
@@ -214,7 +182,7 @@ class ServiceModal extends React.Component {
                 id="standard-required"
                 label="Last Name"
                 className={classes.textField}
-                value={this.state.last}
+                value={last}
                 onChange={this.handleChange('last')}
                 margin="normal"
               />
@@ -270,9 +238,9 @@ class ServiceModal extends React.Component {
               <TextField
                 id="standard-required"
                 select
-                label="Select"
+                label={time}
                 className={classes.textField}
-                value={this.state.time}
+                value={time}
                 onChange={this.handleChange('time')}
                 SelectProps={{
                   MenuProps: {
@@ -292,13 +260,14 @@ class ServiceModal extends React.Component {
                 id="standard-required"
                 label="Phone Number"
                 className={classes.textField}
-                value={this.state.number}
+                value={number}
                 onChange={this.handleChange('number')}
                 margin="normal"
               />
             </form>
-              <Button id='cancelButton' onClick={() => this.handleClose()}>Cancel</Button>
-              {this.submitButton()}
+            <Button id='bookButton' onClick={() => this.handleClose()}>Complete Appointment</Button>
+            <Button id='bookButton' onClick={() => this.handleClose()}>Update Appointment</Button>
+            <Button id='bookButton' onClick={() => this.handleClose()}>Cancel Appointment</Button>
           </div>
         </Modal>
       </div>
@@ -306,15 +275,15 @@ class ServiceModal extends React.Component {
   }
 }
 
-ServiceModal.propTypes = {
+UpdateAppointment.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  return { appointments: state.appointments, user: state.user}
+  return { appointments: state.appointments, user: state.user }
 }
 
 // We need an intermediary variable for handling the recursive nesting.
-const SimpleModalWrapped = withStyles(styles)(ServiceModal);
+const SimpleModalWrapped = withStyles(styles)(UpdateAppointment);
 
 export default connect(mapStateToProps)(SimpleModalWrapped);

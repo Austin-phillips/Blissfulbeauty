@@ -50,3 +50,20 @@ export const addAppointment = (appointment) => {
       })
   }
 }
+
+export const getUserAppointments = (uid) => {
+  return dispatch => {
+    axios.get(`${BASE_URL}/api/appointments/${uid}`)
+      .then(res => {
+        dispatch({ type: 'GET_USERAPPOINTMENTS', userAppointments: res.data })
+      })
+      .catch(err => {
+        console.log(err)
+        dispatch(setFlash('Error loading appointments, please try again.', 'error'))
+      })
+  }
+}
+
+export const clearUserAppointments = () => {
+  return { type: 'CLEAR_USERAPPOINTMENTS' };
+};
