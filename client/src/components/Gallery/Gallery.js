@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import ImageModal from './ImageModal';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
@@ -20,16 +21,24 @@ const styles = theme => ({
 });
 
 class Gallery extends React.Component {
+  state = {
+    loading: false
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getImages())
   }
 
+  toggleLoading = () => {
+    const { loading } = this.state
+    this.setState({loading: !loading})
+  }
+
   handleUpload = (image) => {
     const { dispatch } = this.props;
-    // dispatch(addImage(image))
-    console.log(image)
+    this.toggleLoading()
+    dispatch(addImage(image[0], this.toggleLoading))
   }
 
   render() {
@@ -37,9 +46,14 @@ class Gallery extends React.Component {
 
     return (
       <div className={classes.root}>
+      { this.state.loading ?
+        <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+          Loading...
+        </Typography> :
         <Typography className={classes.header} align='center' variant="h2" gutterBottom>
           Gallery
-      </Typography>
+        </Typography> 
+      }
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <div id='table'>

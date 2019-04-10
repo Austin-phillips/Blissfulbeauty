@@ -28,15 +28,20 @@ export const deleteImage = (id) => {
   }
 }
 
-export const addImage = (image) => {
+export const addImage = (image, callback) => {
   return (dispatch) => {
-    axios.post(`${BASE_URL}/api/images`, { image })
+    let data = new FormData()
+    data.append('image', image)
+    axios.post(`${BASE_URL}/api/images`, data)
       .then(res => {
+        console.log(res.data)
         dispatch({ type: 'ADD_IMAGE', image: res.data, headers: res.headers })
         dispatch(setFlash('Successfully Added Image.', 'success'));
+        callback()
       })
       .catch(err => {
         dispatch(setFlash('Failed to add image', 'error'))
+        callback()
       })
   }
 }
