@@ -1,10 +1,14 @@
 const { Router } = require('express');
 const pool = require('../db');
 const checkJwt = require('../db/checkjwt');
+const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config()
 
+const upload = multer({dest: 'uploads/'})
 const router = Router();
 
+// Get all image URLs
 router.get('/', (request, response, next) => {
   pool.query(
     'SELECT * FROM images',
@@ -16,17 +20,42 @@ router.get('/', (request, response, next) => {
   );
 });
 
-router.post('/', (request, response, next) => {
-  const { path } = request.body.image[0]
-
+// Post a new image to cloudinary
+router.post('/', upload.single('image'), (request, response, next) => {
+  const file = request.file.path
   cloudinary.config({
-    cloud_name: '239151136752426',
-    api_key: '239151136752426',
-    api_secret: 'o7DjizJPV5tm7KWt3hgX62QTJyA'
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
   });
 
-  cloudinary.uploader.upload(path, function (error, result) { console.log(error) });
+  cloudinary.uploader.upload(file, { angle: "exif" }, function (error, result) { 
+    pool.query(
+      'INSERT INTO images(url) VALUES($1) RETURNING *',
+      [result.secure_url],
+      (err, res) => {
+        if (err) return next(err);
 
+        response.json(res.rows[0]);
+      }
+    )
+   });
 })
+
+// Delete an image
+router.delete('/:id', (request, response, next) => {
+  const { id } = request.params;
+
+  pool.query(
+    'DELETE FROM images WHERE id = $1 RETURNING *',
+    [id],
+    (err, res) => {
+      if (err) return next(err);
+
+      const returnedId = res.rows[0].id
+      response.json(returnedId);
+    }
+  );
+});
 
 module.exports = router;

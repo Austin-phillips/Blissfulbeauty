@@ -202,7 +202,7 @@ class UpdateAppointment extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { service, price, length, selectedDate, formattedTime, first, last, email, uid, notes, filteredNumber, status } = this.state;
+    const { service, price, length, selectedDate, formattedTime, first, last, email, notes, filteredNumber, status } = this.state;
     const time = moment(formattedTime, "hh:mm A").format("h:mm A")
 
     return (
@@ -287,7 +287,7 @@ class UpdateAppointment extends React.Component {
                 select
                 label="Time"
                 className={classes.textField}
-                value={formattedTime}
+                value={time}
                 onChange={this.handleChange('formattedTime')}
                 SelectProps={{
                   MenuProps: {

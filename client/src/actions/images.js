@@ -18,7 +18,7 @@ export const deleteImage = (id) => {
   return (dispatch) => {
     axios.delete(`${BASE_URL}/api/images/${id}`)
       .then(res => {
-        dispatch({ type: 'DELETE_IMAGE', id, headers: res.headers });
+        dispatch({ type: 'DELETE_IMAGE', id: res.data, headers: res.headers });
         dispatch(setFlash('Successfully removed image', 'success'));
       })
       .catch(err => {

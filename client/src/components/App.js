@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
 import Callback from '../Callback';
-import SecuredRoute from './SecuredRoute/SecuredRoute';
 import auth0Client from '../Auth';
 import Home from './Home/Home';
 import Service from './Services/Services';
