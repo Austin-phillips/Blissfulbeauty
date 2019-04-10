@@ -4,13 +4,15 @@ import flash from './flash';
 import appointments from './appointments';
 import user from './user';
 import userAppointments from './userAppointments';
+import images from './images';
 
 const rootReducer = combineReducers({
   services,
   flash,
   appointments,
   user,
-  userAppointments
+  userAppointments,
+  images
 });
 
 export default rootReducer;

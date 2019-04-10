@@ -77,7 +77,8 @@ class UpdateService extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    const { name, price, service, description, length } = this.props.service;
+    this.setState({ open: false, name, price, service, description, length });
 
   };
 

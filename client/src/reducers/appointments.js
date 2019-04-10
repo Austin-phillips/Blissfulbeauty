@@ -1,18 +1,14 @@
 const appointments = (state = [], action) => {
   switch (action.type) {
     case 'GET_APPOINTMENTS':
-    if (action.appointments.length === 0) {
-      return { any: false, appointments: action.appointments }
-    } else {
-      return { any: true, appointments: action.appointments }
-    }
+      return action.appointments 
     case 'ADD_APPOINTMENT':
       return [...state, action.appointment]
     case 'UPDATE_APPOINTMENT':
-      return state.map(s => {
-        if (s.id === action.appointment.id)
+      return state.map(a => {
+        if (a.id === action.id)
           return action.appointment
-        return s
+        return a
       })
     case 'DELETE_APPOINTMENT':
       return state.filter(appointment => appointment.id !== action.id)

@@ -118,7 +118,7 @@ class ServiceModal extends React.Component {
       var twohour = array[index + 3]
       var twohourhalf = array[index + 4]
 
-      if (app.date === moment(date).format("M/D/YY") && app.time === time['text']) {
+      if (app.date === moment(date).format("MM/DD/YY") && app.time === time['text']) {
         if (app.length === 60) {
           time['disabled'] = true
           hour['disabled'] = true
@@ -182,9 +182,10 @@ class ServiceModal extends React.Component {
   handleSubmit = (e) => {
     const { dispatch } = this.props;
     const { first, last, selectedDate, time, service, email, notes, length, uid, price, number } = this.state;
-    const date = moment(selectedDate).format("M/D/YY")
+    const date = moment(selectedDate).format("MM/DD/YY")
     const filteredNumber = number.replace(/\D/g, '')
-    dispatch(addAppointment({ first, last, date, time, service, email, notes, length, uid, price, filteredNumber }));
+    const formattedTime = moment(time, "h:mm A").format("hh:mm A")
+    dispatch(addAppointment({ first, last, date, formattedTime, service, email, notes, length, uid, price, filteredNumber }));
     this.setState({ open: false, first: '', last: '', selectedDate: null, time: '', number: '' });
   }
 

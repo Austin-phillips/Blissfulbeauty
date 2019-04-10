@@ -9,7 +9,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Create';
-import { addAppointment } from '../../actions/appointments';
+import { updateAppointment, deleteAppointment } from '../../actions/appointments';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
@@ -71,6 +71,13 @@ const available = [
   { key: '14', text: '4:30 PM', value: '4:30 PM', disabled: false },
 ]
 
+const statusOptions = [
+  {key: '1', text:'Update', value:'Update'},
+  {key: '2', text:'Reschedule', value:'Reschedule'},
+  {key: '3', text:'Complete', value:'Complete'},
+  {key: '4', text:'Cancel', value:'Cancel'},
+]
+
 class UpdateAppointment extends React.Component {
   state = {
     open: false,
@@ -78,13 +85,14 @@ class UpdateAppointment extends React.Component {
     price: this.props.appointment.price,
     length: this.props.appointment.length,
     selectedDate: this.props.appointment.date,
-    time: this.props.appointment.time,
+    formattedTime: this.props.appointment.time,
     first: this.props.appointment.first,
     last: this.props.appointment.last,
     email: this.props.appointment.email,
     uid: this.props.appointment.uid,
     notes: this.props.appointment.notes,
-    number: this.props.appointment.number
+    filteredNumber: this.props.appointment.number,
+    status: '',
   };
 
   handleOpen = () => {
@@ -92,8 +100,8 @@ class UpdateAppointment extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
-
+    const { service, price, length, selectedDate, time, first, last, email, notes, number } = this.props.appointment;
+    this.setState({ open: false, service, price, length, selectedDate, formattedTime: time, first, last, email, notes, filteredNumber: number, status: '' });
   };
 
   handleChange = name => event => {
@@ -119,7 +127,7 @@ class UpdateAppointment extends React.Component {
       var twohour = array[index + 3]
       var twohourhalf = array[index + 4]
 
-      if (app.date === moment(date).format("M/D/YY") && app.time === time['text']) {
+      if (app.date === moment(date).format("MM/DD/YY") && app.time === time['text']) {
         if (app.length === 60) {
           time['disabled'] = true
           hour['disabled'] = true
@@ -147,16 +155,55 @@ class UpdateAppointment extends React.Component {
 
   handleSubmit = (e) => {
     const { dispatch } = this.props;
-    const { first, last, selectedDate, time, service, email, notes, length, uid, price, number } = this.state;
-    const date = moment(selectedDate).format("M/D/YY")
-    const filteredNumber = number.replace(/\D/g, '')
-    dispatch(addAppointment({ first, last, date, time, service, email, notes, length, uid, price, filteredNumber }));
-    this.setState({ open: false, first: '', last: '', selectedDate: null, time: '', number: '' });
+    const { first, last, selectedDate, formattedTime, service, email, notes, length, uid, price, filteredNumber, status } = this.state;
+    const { id } = this.props.appointment;
+    const date = moment(selectedDate).format("MM/DD/YY")
+    const number = filteredNumber.replace(/\D/g, '')
+    const time = moment(formattedTime, "h:mm A").format("hh:mm A")
+
+      if (status === 'Update') {
+        dispatch(updateAppointment({ first, last, date, service, email, notes, length, uid, price, time, number, status}, id))
+        this.setState({ open: false })
+    } else if (status === 'Reschedule') {
+        dispatch(updateAppointment({ first, last, date, service, email, notes, length, uid, price, time, number, status }, id))
+        this.setState({ open: false })
+    } else if (status === 'Complete') {
+      const deleted = window.confirm('Are you sure you want to save as complete?')
+      if (deleted)
+        dispatch(deleteAppointment(id, status, number))
+        this.setState({ open: false })
+    } else if (status === 'Cancel') {
+      const deleted = window.confirm('Are you sure you want to cancel?')
+      if (deleted)
+        dispatch(deleteAppointment(id, status, number))
+        this.setState({ open: false })
+    }
+  }
+
+  handleButtons = () => {
+    const { status } = this.state;
+
+    if (status === '') {
+      return(
+        <div>
+          <Button disabled id='bookButton' onClick={() => this.handleSubmit()}>Save</Button>
+          <Button id='bookButton' onClick={() => this.handleClose()}>Close</Button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <Button id='bookButton' onClick={() => this.handleSubmit()}>Save</Button>
+          <Button id='bookButton' onClick={() => this.handleClose()}>Close</Button>
+        </div>
+      )
+    }
   }
 
   render() {
     const { classes } = this.props;
-    const { service, price, length, selectedDate, time, first, last, email, uid, notes, number } = this.state;
+    const { service, price, length, selectedDate, formattedTime, first, last, email, uid, notes, filteredNumber, status } = this.state;
+    const time = moment(formattedTime, "hh:mm A").format("h:mm A")
 
     return (
       <div>
@@ -238,10 +285,10 @@ class UpdateAppointment extends React.Component {
               <TextField
                 id="standard-required"
                 select
-                label={time}
+                label="Time"
                 className={classes.textField}
-                value={time}
-                onChange={this.handleChange('time')}
+                value={formattedTime}
+                onChange={this.handleChange('formattedTime')}
                 SelectProps={{
                   MenuProps: {
                     className: classes.menu,
@@ -260,14 +307,43 @@ class UpdateAppointment extends React.Component {
                 id="standard-required"
                 label="Phone Number"
                 className={classes.textField}
-                value={number}
-                onChange={this.handleChange('number')}
+                value={filteredNumber}
+                onChange={this.handleChange('filteredNumber')}
                 margin="normal"
               />
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Notes"
+                multiline
+                rowsMax="4"
+                value={notes}
+                onChange={this.handleChange('notes')}
+                className={classes.textField}
+                margin="normal"
+              />
+              <TextField
+                id="standard-required"
+                required
+                select
+                label="Status"
+                className={classes.textField}
+                value={status}
+                onChange={this.handleChange('status')}
+                SelectProps={{
+                  MenuProps: {
+                    className: classes.menu,
+                  },
+                }}
+                margin="normal"
+              >
+                {statusOptions.map(s => (
+                  <MenuItem key={s.key} value={s.text}>
+                    {s.text}
+                  </MenuItem>
+                ))}
+              </TextField>
             </form>
-            <Button id='bookButton' onClick={() => this.handleClose()}>Complete Appointment</Button>
-            <Button id='bookButton' onClick={() => this.handleClose()}>Update Appointment</Button>
-            <Button id='bookButton' onClick={() => this.handleClose()}>Cancel Appointment</Button>
+            {this.handleButtons()}
           </div>
         </Modal>
       </div>

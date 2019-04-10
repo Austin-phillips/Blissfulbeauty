@@ -55,11 +55,11 @@ class AppointmentsTable extends React.Component {
     const { user, appointments } = this.props;
     const profile = user.profile;
     const role = profile[ROLE_URL];
-    const filteredAppointments = this.props.appointments.appointments.filter(
+    const filteredAppointments = this.props.appointments.filter(
       (appointment) => {
         const { search, date } = this.state;
         const fullName = appointment.first.toLowerCase() + appointment.last.toLowerCase()
-        const filteredDate = date === '' ? '' : moment(this.state.date).format("M/D/YY")
+        const filteredDate = date === '' ? '' : moment(this.state.date).format("MM/DD/YY")
         return (
           fullName.indexOf(search.toLowerCase()) !== -1 &&
           appointment.date.indexOf(filteredDate) !== -1
@@ -68,15 +68,17 @@ class AppointmentsTable extends React.Component {
     );
 
     if (role[0] === 'admin') {
-      if (appointments.any) {
+      if (appointments.length !== 0) {
         return filteredAppointments.map(a => {
+          const time = a.time
+          const formattedTime = moment(time, "hh:mm A").format("h:mm A")
           return (
             <TableRow key={a.id}>
               <TableCell component="th" scope="row">
                 {a.first} {a.last}
               </TableCell>
               <TableCell align="right">{a.date}</TableCell>
-              <TableCell align="right">{a.time}</TableCell>
+              <TableCell align="right">{formattedTime}</TableCell>
               <TableCell align="right">{a.service}</TableCell>
               <TableCell align="right">${a.price}.00</TableCell>
               <TableCell align="right"><UpdateAppointment appointment={a} /></TableCell>

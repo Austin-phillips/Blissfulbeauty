@@ -14,11 +14,11 @@ export const getAppointments = () => {
   }
 }
 
-export const updateService = (appointment, id, history) => {
+export const updateAppointment = (appointment, id) => {
   return (dispatch) => {
     axios.put(`${BASE_URL}/api/appointments/${id}`, { appointment })
       .then(res => {
-        dispatch({ type: 'UPDATE_APPOINTMENT', appointment: res.data, headers: res.headers })
+        dispatch({ type: 'UPDATE_APPOINTMENT', appointment: appointment, id: id, headers: res.headers })
       })
       .catch(err => {
         dispatch(setFlash('Failed to update appointment', 'error'))
@@ -26,9 +26,9 @@ export const updateService = (appointment, id, history) => {
   }
 }
 
-export const deleteAppointment = (id) => {
+export const deleteAppointment = (id, status, number) => {
   return (dispatch) => {
-    axios.delete(`${BASE_URL}/api/appointments/${id}`)
+    axios.delete(`${BASE_URL}/api/appointments/${id}/${status}/${number}`)
       .then(res => {
         dispatch({ type: 'DELETE_APPOINTMENT', id, headers: res.headers });
       })
@@ -46,6 +46,7 @@ export const addAppointment = (appointment) => {
         dispatch(setFlash('Thanks for booking.', 'success'))
       })
       .catch(err => {
+        console.log(err)
         dispatch(setFlash('Failed to add appointment', 'error'))
       })
   }

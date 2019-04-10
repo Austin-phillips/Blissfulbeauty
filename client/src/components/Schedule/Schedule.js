@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import ScheduleTable from './ScheduleTable';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -18,7 +17,7 @@ const styles = theme => ({
 class Appointments extends React.Component {
 
   render() {
-    const { classes, isAuthenticated } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -41,8 +40,4 @@ Appointments.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return { isAuthenticated: state.user.isAuthenticated }
-}
-
-export default connect(mapStateToProps)(withStyles(styles)(Appointments));
+export default withStyles(styles)(Appointments);
