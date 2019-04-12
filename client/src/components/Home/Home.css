@@ -1,0 +1,116 @@
+:root {
+  --color1: rgba(124, 137, 139, 1); 
+  --color2: rgba(99, 101, 100, 1); 
+  --color3: rgba(152, 148, 212, 1); 
+  --color4: rgba(208, 204, 208, 1); 
+  --color5: rgba(251, 252, 255, 1); 
+}
+
+h1{
+  font-size: 4em;
+  font-family: 'Arapey', serif;
+}
+
+#img-container{
+  background-image: url(../../assets/images/homeBackground.jpg);
+  height: 85vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+#inner-container{
+  text-align: center;
+  background-color: rgba(128, 128, 128, 0.397);
+  position: absolute;
+  width: 100%;
+  color: white;
+  height: auto;
+  margin-top: 100px;
+}
+
+/* About me section */
+#aboutMeGrid {
+  margin-top: 25px;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+#aboutMeHeader{
+  margin-top: 75px;
+  font-size: 3em;
+  font-family: 'Arapey', serif;
+  text-decoration: underline;
+}
+
+#aboutMeBody{
+  font-size: 1.3em;
+  font-family: 'Arapey', serif;
+}
+
+#aboutMeBodyContainer{
+  text-align: center;
+  height: 400px;
+  padding: 50px;
+}
+
+#aboutMeButton{
+  background-color: var(--color3);
+  margin-top: 20px;
+}
+
+/* Responsive */
+/* large device */
+@media only screen and (max-width: 1000px) {
+  #inner-container{
+    margin-top: 100px;
+  }
+
+  #aboutMeBody{
+    padding: 25px;
+    font-size: 1.1em;
+  }
+}
+
+/* Medium device  */
+@media only screen and (max-width: 920px) {
+  #inner-container{
+    margin-top: 100px;
+  }
+
+  #aboutMeBody{
+    padding: 25px;
+    font-size: 1.1em;
+  }
+}
+
+/* Medium device */
+@media only screen and (max-width: 700px) {
+  #inner-container{
+    margin-top: 100px;
+  }
+
+  #aboutMeBody{
+    padding: 25px;
+    font-size: 1em;
+  }
+}
+
+/* Smaller device */
+@media only screen and (max-width: 540px) {
+  #inner-container{
+    margin-top: 180px;
+  }
+  h1{
+    font-size: 3em;
+  }
+
+  #img-container{
+    height: 80vh;
+  }
+
+  #aboutMeBodyContainer{
+    padding: 0;
+  }
+}

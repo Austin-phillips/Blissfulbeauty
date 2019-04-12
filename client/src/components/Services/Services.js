@@ -25,9 +25,9 @@ function Services(props) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+      {/* <Typography className={classes.header} align='center' variant="h2" gutterBottom>
         Services
-      </Typography> 
+      </Typography>  */}
       <Grid container spacing={24}>
         <Grid item xs={12}>
           {user.isAuthenticated && role[0] === 'admin' ? <CreateService /> : null}

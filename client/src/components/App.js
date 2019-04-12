@@ -10,6 +10,7 @@ import Gallery from './Gallery/Gallery';
 import Schedule from './Schedule/Schedule';
 import UpdateService from './Services/UpdateService';
 import Flash from './Flash/Flash';
+import './App.css'
 
 class App extends Component {
   constructor(props) {
