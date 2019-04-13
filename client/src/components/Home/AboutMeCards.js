@@ -9,10 +9,10 @@ import JaidenImage from '../../assets/images/jaidenPortrait.jpg'
 const styles = theme => ({
   card: {
     maxWidth: '100%',
-    height: 400,
+    height: 350,
   },
   media: {
-    height: 400,
+    height: 350,
     paddingTop: '56.25%', // 16:9
     position: 'top',
   },

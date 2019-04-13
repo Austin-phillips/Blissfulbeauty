@@ -6,6 +6,7 @@
   --color5: rgba(251, 252, 255, 1); 
 }
 
+/* General styling */
 h1{
   font-size: 4em;
   font-family: 'Arapey', serif;
@@ -30,35 +31,43 @@ h1{
   margin-top: 100px;
 }
 
-/* About me section */
-#aboutMeGrid {
-  margin-top: 25px;
-  margin-right: 50px;
-  margin-left: 50px;
+#whiteContainer{
+width: 90%;
+margin: auto;
+background-color: white;
+border-radius: 25px;
 }
 
-#aboutMeHeader{
+#header{
   margin-top: 75px;
   font-size: 3em;
   font-family: 'Arapey', serif;
   text-decoration: underline;
 }
 
+/* About me section */
+#aboutMeGrid {
+  margin: 50px 50px 0 50px;
+  padding-bottom: 50px;
+}
+
 #aboutMeBody{
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-family: 'Arapey', serif;
 }
 
 #aboutMeBodyContainer{
   text-align: center;
-  height: 400px;
-  padding: 50px;
+  height: auto;
 }
 
 #aboutMeButton{
   background-color: var(--color3);
   margin-top: 20px;
 }
+
+/* Gallery */
+
 
 /* Responsive */
 /* large device */
@@ -68,7 +77,6 @@ h1{
   }
 
   #aboutMeBody{
-    padding: 25px;
     font-size: 1.1em;
   }
 }
@@ -80,25 +88,33 @@ h1{
   }
 
   #aboutMeBody{
-    padding: 25px;
     font-size: 1.1em;
+  }
+
+  #aboutMeBodyContainer{
+    margin-top: 0;
+    height: auto;
   }
 }
 
-/* Medium device */
-@media only screen and (max-width: 700px) {
+/* Small devices */
+@media only screen and (max-width: 775px) {
   #inner-container{
     margin-top: 100px;
   }
 
   #aboutMeBody{
-    padding: 25px;
-    font-size: 1em;
+    font-size: 1.1em;
+  }
+
+  #aboutMeBodyContainer{
+    margin-top: 0;
+    height: auto;
   }
 }
 
-/* Smaller device */
-@media only screen and (max-width: 540px) {
+/* XS devices */
+@media only screen and (max-width: 600px) {
   #inner-container{
     margin-top: 180px;
   }
@@ -111,6 +127,7 @@ h1{
   }
 
   #aboutMeBodyContainer{
-    padding: 0;
+    margin-top: 0;
+    height: auto;
   }
 }

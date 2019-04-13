@@ -7,6 +7,7 @@ import './Home.css';
 import AboutMeCards from './AboutMeCards';
 import Typography from '@material-ui/core/Typography';
 import { Button } from '@material-ui/core';
+import ImageCarousel from './ImageCarousel';
 
 const styles = theme => ({
   root: {
@@ -25,34 +26,47 @@ class Home extends Component {
     const { classes } = this.props;
     return(
       <div>
+        {/* Top image and title */}
         <div id="img-container">
           <div id="inner-container">
             <h1>blissful beauty</h1>
           </div>
         </div>
-        <Typography id="aboutMeHeader" className={classes.header} align='center' gutterBottom>
-          About Me
-        </Typography>
-        <div id="aboutMeGrid">
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={6} md={4}>
-              <AboutMeCards />
-            </Grid>
-            <Grid item xs={12} sm={6} md={8}>
-              <div id='bodyContainer'>
-                <div id="aboutMeBodyContainer">
-                  <Typography id="aboutMeBody" variant="body1" gutterBottom align='justify'>
-                    body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam. body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
-                  </Typography>
-                  <Button id="aboutMeButton">View Services</Button>
+        {/* About me section */}
+        <div id="whiteContainer">
+          <Typography id="header" className={classes.header} align='center' gutterBottom>
+            About Me
+          </Typography>
+          <div id="aboutMeGrid">
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={5}>
+                <AboutMeCards />
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <div id='bodyContainer'>
+                  <div id="aboutMeBodyContainer">
+                    <Typography id="aboutMeBody" variant="body1" gutterBottom align='justify'>
+                      body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                      unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+                      dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam. body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                      unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+                      dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                    </Typography>
+                    <Button id="aboutMeButton">View Services</Button>
+                  </div>
                 </div>
-              </div>
+              </Grid>
             </Grid>
-          </Grid>
+          </div>
+        </div>
+        {/* Gallery */}
+        <div id="whiteContainer">
+          <Typography id="header" className={classes.header} align='center' gutterBottom>
+            Some Of My Work
+          </Typography>
+          <div id="imageContainer">
+            <ImageCarousel />
+          </div>
         </div>
       </div>
     )
