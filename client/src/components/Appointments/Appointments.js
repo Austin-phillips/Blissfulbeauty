@@ -11,6 +11,7 @@ import { Button } from '@material-ui/core';
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    height: '100%',
   },
   header: {
     marginTop: '25px',

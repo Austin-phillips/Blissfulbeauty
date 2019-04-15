@@ -11,6 +11,7 @@ import Schedule from './Schedule/Schedule';
 import UpdateService from './Services/UpdateService';
 import Flash from './Flash/Flash';
 import './App.css'
+import Footer from './Footer/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -39,18 +40,19 @@ class App extends Component {
       <div>
         <NavBar />
         <Flash />
-        <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/services' component={Service}/>
-          <Route exact path='/appointments' component={Appointments}/>
-          <Route exact path='/gallery' component={Gallery}/>
-          <Route exact path='/schedule' component={Schedule}/>
-          <Route exact path='/services/:id' component={UpdateService}/>
-          <Route exact path='/callback' component={Callback} />
-          {/* <SecuredRoute path='/new-question'
-            component={NewQuestion}
-            checkingSession={this.state.checkingSession} /> */}
-        </Switch>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/services' component={Service}/>
+            <Route exact path='/appointments' component={Appointments}/>
+            <Route exact path='/gallery' component={Gallery}/>
+            <Route exact path='/schedule' component={Schedule}/>
+            <Route exact path='/services/:id' component={UpdateService}/>
+            <Route exact path='/callback' component={Callback} />
+            {/* <SecuredRoute path='/new-question'
+              component={NewQuestion}
+              checkingSession={this.state.checkingSession} /> */}
+          </Switch>
+        {/* <Footer /> */}
       </div>
     );
   }

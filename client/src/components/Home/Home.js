@@ -30,13 +30,11 @@ class Home extends Component {
         <div id="img-container">
           <div id="inner-container">
             <h1>blissful beauty</h1>
+            <Button id="topBookButton" size='large'>Book Now</Button>
           </div>
         </div>
         {/* About me section */}
-        <div id="whiteContainer">
-          <Typography id="header" className={classes.header} align='center' gutterBottom>
-            About Me
-          </Typography>
+        <div id="aboutMeContainer">
           <div id="aboutMeGrid">
             <Grid container spacing={24}>
               <Grid item xs={12} sm={5}>
@@ -45,6 +43,9 @@ class Home extends Component {
               <Grid item xs={12} sm={7}>
                 <div id='bodyContainer'>
                   <div id="aboutMeBodyContainer">
+                    <Typography id="header" className={classes.header} align='left' gutterBottom>
+                      About Me
+                    </Typography>
                     <Typography id="aboutMeBody" variant="body1" gutterBottom align='justify'>
                       body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
                       unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
@@ -62,11 +63,9 @@ class Home extends Component {
         {/* Gallery */}
         <div id="whiteContainer">
           <Typography id="header" className={classes.header} align='center' gutterBottom>
-            Some Of My Work
+            Gallery
           </Typography>
-          <div id="imageContainer">
-            <ImageCarousel />
-          </div>
+          <ImageCarousel />
         </div>
       </div>
     )

@@ -86,7 +86,7 @@ class NavBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <div className={classes.root}>
+      <div id="navbarContainer">
         <AppBar id='NavBar' position="static">
           <Toolbar>
             <MenuSlide user={user} />

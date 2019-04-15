@@ -8,8 +8,9 @@
 
 /* General styling */
 h1{
-  font-size: 4em;
+  font-size: 6em;
   font-family: 'Arapey', serif;
+  margin-top: 100px;
 }
 
 #img-container{
@@ -23,29 +24,37 @@ h1{
 
 #inner-container{
   text-align: center;
-  background-color: rgba(128, 128, 128, 0.397);
+  background-color: rgba(128, 128, 128, 0.4);
   position: absolute;
   width: 100%;
   color: white;
-  height: auto;
-  margin-top: 100px;
+  height: 100%;
+  /* margin-top: 100px; */
 }
 
 #whiteContainer{
-width: 90%;
-margin: auto;
-background-color: white;
-border-radius: 25px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 100px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
 }
 
 #header{
-  margin-top: 75px;
   font-size: 3em;
   font-family: 'Arapey', serif;
   text-decoration: underline;
 }
 
+#topBookButton{
+  background-color: var(--color3);
+}
+
 /* About me section */
+#aboutMeContainer{
+  margin-top: 150px;
+}
+
 #aboutMeGrid {
   margin: 50px 50px 0 50px;
   padding-bottom: 50px;
@@ -57,7 +66,6 @@ border-radius: 25px;
 }
 
 #aboutMeBodyContainer{
-  text-align: center;
   height: auto;
 }
 
@@ -67,15 +75,15 @@ border-radius: 25px;
 }
 
 /* Gallery */
-
+#imageCarouselContainer{
+  width: 50%;
+  margin: auto;
+  flex-grow: 1;
+}
 
 /* Responsive */
 /* large device */
 @media only screen and (max-width: 1000px) {
-  #inner-container{
-    margin-top: 100px;
-  }
-
   #aboutMeBody{
     font-size: 1.1em;
   }
@@ -83,10 +91,6 @@ border-radius: 25px;
 
 /* Medium device  */
 @media only screen and (max-width: 920px) {
-  #inner-container{
-    margin-top: 100px;
-  }
-
   #aboutMeBody{
     font-size: 1.1em;
   }
@@ -94,40 +98,51 @@ border-radius: 25px;
   #aboutMeBodyContainer{
     margin-top: 0;
     height: auto;
+  }
+
+  #imageCarouselContainer{
+    width: 80%;
+    margin: auto;
   }
 }
 
 /* Small devices */
 @media only screen and (max-width: 775px) {
-  #inner-container{
-    margin-top: 100px;
-  }
-
   #aboutMeBody{
-    font-size: 1.1em;
+    font-size: 1em;
   }
 
   #aboutMeBodyContainer{
     margin-top: 0;
     height: auto;
+  }
+
+  #imageCarouselContainer{
+    width: 90%;
+    margin: auto;
   }
 }
 
 /* XS devices */
 @media only screen and (max-width: 600px) {
-  #inner-container{
-    margin-top: 180px;
-  }
   h1{
     font-size: 3em;
   }
 
   #img-container{
-    height: 80vh;
+    height: 70vh;
   }
 
   #aboutMeBodyContainer{
     margin-top: 0;
     height: auto;
+  }
+
+  #aboutMeBody{
+    font-size: 1.2em;
+  }
+
+  #imageCarouselContainer{
+    width: 100%;
   }
 }
