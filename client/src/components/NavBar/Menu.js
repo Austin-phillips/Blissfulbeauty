@@ -14,6 +14,7 @@ import EventIcon from '@material-ui/icons/Event';
 import PhotoIcon from '@material-ui/icons/PhotoLibrary'
 import HomeIcon from '@material-ui/icons/Home';
 import ScheduleIcon from '@material-ui/icons/Book';
+import './NavBar.css'
 import { Link, withRouter } from 'react-router-dom';
 import { ROLE_URL } from '../../Secrets/env';
 
@@ -82,7 +83,7 @@ class Menu extends React.Component {
       return(
         <div>
           <Divider />
-          <Link to='schedule'>
+          <Link id="navabarLinks" to='schedule'>
             <ListItem key='admin'>
               <ListItemIcon>
                 <ScheduleIcon />
@@ -104,7 +105,7 @@ class Menu extends React.Component {
         <List>
           {navOptions.map(o => {
             return(
-              <Link key={o.key} to={o.href}>
+              <Link id="navabarLinks" key={o.key} to={o.href}>
                 <ListItem >
                   {this.navIcon(o.value)}
                   <ListItemText primary={o.text} />

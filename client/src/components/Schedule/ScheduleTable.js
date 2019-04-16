@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,13 +10,16 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from 'moment';
 import EventIcon from '@material-ui/icons/Event';
+import TextField from '@material-ui/core/TextField';
+import DateFnsUtils from '@date-io/date-fns';
+import UpdateAppointment from './UpdateAppointment';
+import { Link, withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
 import { getAppointments } from '../../actions/appointments';
 import { ROLE_URL } from '../../Secrets/env';
-import TextField from '@material-ui/core/TextField';
-import DateFnsUtils from '@date-io/date-fns';
-import UpdateAppointment from './UpdateAppointment';
+import './Schedule.css'
 
 const styles = theme => ({
   root: {
@@ -138,9 +140,11 @@ class AppointmentsTable extends React.Component {
         <IconButton className={classes.button} onClick={() => this.setState({ date: '', selectedDate: null, search: ''})} aria-label="Clear">
           <ClearIcon />
         </IconButton>
-        <IconButton href='/services' className={classes.button} aria-label="Book">
-          <EventIcon />
-        </IconButton>
+        <Link id="scheduleLink" to='/services'>
+          <IconButton className={classes.button} aria-label="Book">
+            <EventIcon />
+          </IconButton>
+        </Link>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -172,4 +176,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(AppointmentsTable));
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(AppointmentsTable)));

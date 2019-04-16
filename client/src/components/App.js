@@ -52,7 +52,7 @@ class App extends Component {
               component={NewQuestion}
               checkingSession={this.state.checkingSession} /> */}
           </Switch>
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

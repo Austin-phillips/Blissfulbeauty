@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    width: '100%',
+    minHeight: '100vh'
   },
   header: {
     marginTop: '25px',

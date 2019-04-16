@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Table from './AppointmentsTable';
 import Grid from '@material-ui/core/Grid';
 import './Appointment.css';
+import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
@@ -11,7 +12,10 @@ import { Button } from '@material-ui/core';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
   },
   header: {
     marginTop: '25px',
@@ -24,7 +28,7 @@ class Appointments extends React.Component {
   const { classes, isAuthenticated } = this.props;
 
   return (
-    <div className={classes.root}>
+    <div id="appointmentsContainer">
       <Typography className={classes.header} align='center' variant="h2" gutterBottom>
         Appointments
       </Typography>
@@ -32,7 +36,7 @@ class Appointments extends React.Component {
         <Grid item xs={12}>
           <div id='table'>
             { isAuthenticated ?
-              <Button href='/services' id='servicesLink'>Book Appointment</Button> :
+              <Link id="appointmentLink" to='/services'><Button id='servicesLink'>Book Appointment</Button></Link> :
               null
             }
             <Table />
@@ -51,4 +55,4 @@ const mapStateToProps = (state) => {
   return { isAuthenticated: state.user.isAuthenticated }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Appointments));
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(Appointments)));

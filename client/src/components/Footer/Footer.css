@@ -1,12 +1,56 @@
 #footerContainer{
-position: fixed;
+position: relative;
 left:0;
 bottom:0;
 right:0;
-background-color: rgb(63, 63, 63);
-height: 100px;
+background-color: rgb(75, 75, 75);
+height: 250px;
 }
 
-#socials{
+#footerInnerContainer{
+  position: absolute;
+  width: 100%;
+  color: white;
+  height: 100%;
+}
+
+#footerContact{
   text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+#contactOptions{
+  font-size: .9em;
+  margin-top: 5px;
+}
+
+#footerSocials{
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+#footerLinks{
+  color: rgb(146, 146, 146);
+  text-align: center;
+}
+
+#individualLink{
+  color: rgb(146, 146, 146);
+  text-decoration: none;
+}
+
+#footerDivider{
+  background-color: rgb(129, 129, 129);
+  width: 80%;
+  margin: 20px auto 15px auto;
+}
+
+#copyright{
+  text-align: center;
+}
+
+i{
+  color: white;
+  font-size: 2em;
+  margin: 5px
 }

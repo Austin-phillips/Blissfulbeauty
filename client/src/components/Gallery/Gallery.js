@@ -21,14 +21,15 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    marginTop: '50px',
+    marginBottom: '100px',
   },
   header: {
     marginTop: '25px',
   },
   gridList: {
     width: '80vw',
-    height: '80vh',
+    height: '100vh',
   },
   titleBar: {
     background:

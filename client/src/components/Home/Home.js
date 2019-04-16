@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import './Home.css';
 import AboutMeCards from './AboutMeCards';
 import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
 import ImageCarousel from './ImageCarousel';
+import { Link, withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import './Home.css';
 
 const styles = theme => ({
   root: {
@@ -30,7 +30,7 @@ class Home extends Component {
         <div id="img-container">
           <div id="inner-container">
             <h1>blissful beauty</h1>
-            <Button id="topBookButton" size='large'>Book Now</Button>
+            <Link id="homePageLinks" to='/services'><Button id="topBookButton" size='large'>Book Now</Button></Link>
           </div>
         </div>
         {/* About me section */}
@@ -53,7 +53,7 @@ class Home extends Component {
                       unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
                       dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
                     </Typography>
-                    <Button id="aboutMeButton">View Services</Button>
+                    <Link id='homePageLinks' to='/services'><Button id="aboutMeButton">View Services</Button></Link>
                   </div>
                 </div>
               </Grid>
@@ -66,6 +66,7 @@ class Home extends Component {
             Gallery
           </Typography>
           <ImageCarousel />
+          <Link id='homePageLinks' to='/gallery'><Button id="aboutMeButton">View More Photos</Button></Link>
         </div>
       </div>
     )
@@ -76,4 +77,4 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Home);
+export default withRouter(withStyles(styles)(Home));

@@ -6,6 +6,11 @@
   --color5: rgba(251, 252, 255, 1); 
 }
 
+#servicesContainer{
+  width: 100%;
+  min-height: 100vh;
+}
+
 #bookButton {
   background-color: var(--color3);
   margin: 5px 5px 5px 5px;

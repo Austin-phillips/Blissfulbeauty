@@ -10,7 +10,7 @@
 h1{
   font-size: 6em;
   font-family: 'Arapey', serif;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 #img-container{
@@ -38,6 +38,7 @@ h1{
   margin-top: 100px;
   width: 100%;
   background-color: rgb(255, 255, 255);
+  text-align: center;
 }
 
 #header{
@@ -48,6 +49,10 @@ h1{
 
 #topBookButton{
   background-color: var(--color3);
+}
+
+#homePageLinks{
+  text-decoration: none;
 }
 
 /* About me section */

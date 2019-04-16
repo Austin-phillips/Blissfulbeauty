@@ -24,7 +24,7 @@ function Services(props) {
   const role = user.isAuthenticated ? profile[ROLE_URL] : null
 
   return (
-    <div className={classes.root}>
+    <div id="servicesContainer">
       {/* <Typography className={classes.header} align='center' variant="h2" gutterBottom>
         Services
       </Typography>  */}

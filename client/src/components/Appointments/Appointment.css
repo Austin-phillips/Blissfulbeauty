@@ -6,12 +6,32 @@
   --color5: rgba(251, 252, 255, 1); 
 }
 
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html, body{
+  height:100%;
+}
+
+#appointmentsContainer{
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  overflow: auto;
+}
+
 #table {
   margin: 20px;
 }
 
 #servicesLink {
   background-color: var(--color3);
+}
+
+#appointmentLink{
+  text-decoration: none;
 }
 
 #appointmentsSignInButton {

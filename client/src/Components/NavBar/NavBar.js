@@ -20,6 +20,7 @@ import { clearUserAppointments } from '../../actions/appointments';
 const styles = {
   root: {
     flexGrow: 1,
+    marginBottom: '50px',
   },
   grow: {
     flexGrow: 1,
@@ -86,8 +87,8 @@ class NavBar extends React.Component {
     const open = Boolean(anchorEl);
 
     return (
-      <div id="navbarContainer">
-        <AppBar id='NavBar' position="static">
+      <div className={classes.root}>
+        <AppBar id='NavBar' position="fixed">
           <Toolbar>
             <MenuSlide user={user} />
             <Typography variant="h6" color="inherit" className={classes.grow}>
