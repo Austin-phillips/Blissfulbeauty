@@ -10,10 +10,9 @@ class Footer extends Component {
       <div id="footerContainer">
         <div id="footerInnerContainer">
           <div id="footerContact">
-            Contact<br/>
+            Contact Information<br/>
             <div id="contactOptions">
-              Phone Number: (801) 822-9174<br/>
-              Email: kallasbeauty101@gmail.com 
+              kallasbeauty101@gmail.com 
             </div>
           </div>
           <div id="footerSocials">

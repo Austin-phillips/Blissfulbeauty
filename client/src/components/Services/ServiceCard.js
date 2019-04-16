@@ -89,7 +89,7 @@ class ServiceCard extends React.Component {
             </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
+          <CardActions id="bookButtonContainer">
             { user.isAuthenticated ? 
               this.handleButtons(s) : 
               <Button id='bookButton' onClick={() => this.signIn()}>Sign In to Book</Button>

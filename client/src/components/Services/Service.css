@@ -7,13 +7,20 @@
 }
 
 #servicesContainer{
-  width: 100%;
+  width: 50%;
+  margin:  100px auto;
   min-height: 100vh;
+  text-align: center;
 }
 
 #bookButton {
   background-color: var(--color3);
   margin: 5px 5px 5px 5px;
+}
+
+#bookButtonContainer{
+  display: block;
+  text-align: center;
 }
 
 #submitButton {

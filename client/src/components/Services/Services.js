@@ -14,7 +14,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   header: {
-    marginTop: '25px',
+    marginTop: '50px',
   }
 });
 
