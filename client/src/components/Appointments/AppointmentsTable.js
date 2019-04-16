@@ -17,7 +17,7 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 350,
+    minWidth: 700,
   },
 });
 
@@ -62,7 +62,7 @@ class AppointmentsTable extends React.Component{
       return (
         <TableRow>
           <TableCell>
-            Must be signed in to view appointments
+            Sign In To View
           </TableCell>
         </TableRow>
       )

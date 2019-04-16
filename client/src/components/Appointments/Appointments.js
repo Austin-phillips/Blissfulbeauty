@@ -7,7 +7,7 @@ import './Appointment.css';
 import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -29,12 +29,13 @@ class Appointments extends React.Component {
 
   return (
     <div id="appointmentsContainer">
-      <Typography className={classes.header} align='center' variant="h2" gutterBottom>
-        Appointments
-      </Typography>
       <Grid container spacing={24}>
         <Grid item xs={12}>
           <div id='table'>
+            <Typography id="appointmentsHeader" align='left' variant="h4" gutterBottom>
+              Appointments
+            </Typography>
+            <Divider id="appointmentsDivider" />
             { isAuthenticated ?
               <Link id="appointmentLink" to='/services'><Button id='servicesLink'>Book Appointment</Button></Link> :
               null

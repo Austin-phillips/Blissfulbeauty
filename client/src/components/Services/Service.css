@@ -7,10 +7,19 @@
 }
 
 #servicesContainer{
-  width: 50%;
+  width: 95%;
   margin:  100px auto;
   min-height: 100vh;
   text-align: center;
+}
+
+#servicesHeader{
+  margin: 50px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
+#servicesDivider{
+  margin-bottom: 25px;
 }
 
 #bookButton {

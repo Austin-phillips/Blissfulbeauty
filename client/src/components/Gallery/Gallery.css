@@ -1,0 +1,9 @@
+#galleryHeader{
+  margin: 100px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
+#galleryDivider{
+  width: 95%;
+  margin: auto;
+}

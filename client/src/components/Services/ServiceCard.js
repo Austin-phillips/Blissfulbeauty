@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import auth0Client from '../../Auth';
 import ServiceModal from './ServiceModal';
 import UpdateService from './UpdateService';
+import Grid from '@material-ui/core/Grid';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { connect } from 'react-redux';
@@ -20,7 +21,7 @@ import './Service.css';
 
 const styles = {
   card: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     margin: '20px auto',
   },
   media: {
@@ -72,30 +73,32 @@ class ServiceCard extends React.Component {
     const { classes, user, services } = this.props;
     return services.map(s => {
       return(
-        <Card id='ServiceCard' key={s.id} className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {s.name}
-            </Typography>
-              <Typography component="p">
-                {s.description}
-            </Typography>
-              <Typography component="p">
-                Price: ${s.price}.00
-            </Typography>
-              <Typography component="p">
-                length: {s.length} min
-            </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions id="bookButtonContainer">
-            { user.isAuthenticated ? 
-              this.handleButtons(s) : 
-              <Button id='bookButton' onClick={() => this.signIn()}>Sign In to Book</Button>
-            }
-          </CardActions>
-        </Card>
+        <Grid item xs={12} sm={6}>
+          <Card id='ServiceCard' key={s.id} className={classes.card}>
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {s.name}
+              </Typography>
+                <Typography component="p">
+                  {s.description}
+              </Typography>
+                <Typography component="p">
+                  Price: ${s.price}.00
+              </Typography>
+                <Typography component="p">
+                  length: {s.length} min
+              </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions id="bookButtonContainer">
+              { user.isAuthenticated ? 
+                this.handleButtons(s) : 
+                <Button id='bookButton' onClick={() => this.signIn()}>Sign In to Book</Button>
+              }
+            </CardActions>
+          </Card>
+        </Grid>
       )
     });
   };
@@ -103,7 +106,9 @@ class ServiceCard extends React.Component {
   render() {
     return(
       <div>
-        {this.serviceCard()}
+        <Grid container spacing={24}>
+          {this.serviceCard()}
+        </Grid>
       </div>
     )
   }

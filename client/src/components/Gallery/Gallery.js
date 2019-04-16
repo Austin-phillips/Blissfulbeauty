@@ -13,6 +13,8 @@ import { ROLE_URL } from '../../Secrets/env';
 import { connect } from 'react-redux';
 import { getImages, addImage, deleteImage } from '../../actions/images';
 import { withStyles } from '@material-ui/core/styles';
+import './Gallery.css'
+import { Divider } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -25,7 +27,7 @@ const styles = theme => ({
     marginBottom: '100px',
   },
   header: {
-    marginTop: '25px',
+    marginTop: '100px',
   },
   gridList: {
     width: '80vw',
@@ -55,10 +57,10 @@ class Gallery extends React.Component {
     this.setState({loading: !loading})
   }
 
-  handleUpload = (image) => {
+  handleUpload = (images) => {
     const { dispatch } = this.props;
     this.toggleLoading()
-    dispatch(addImage(image[0], this.toggleLoading))
+    dispatch(addImage(images, this.toggleLoading))
   }
 
   deleteImage = (id) => {
@@ -146,13 +148,14 @@ class Gallery extends React.Component {
     return (
       <div>
         { this.state.loading ?
-          <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+          <Typography id="galleryHeader" align='center' variant="h2" gutterBottom>
             Loading...
           </Typography> :
-          <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+          <Typography id="galleryHeader" align='center' variant="h4" gutterBottom>
             Gallery
           </Typography> 
         }
+        <Divider id="galleryDivider" />
         <div>
           { user.isAuthenticated ? this.addButton() : null}
         </div>

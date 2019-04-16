@@ -15,6 +15,11 @@ html, body{
   height:100%;
 }
 
+#appointmentsHeader{
+  margin: 50px auto 20px auto;
+  font-family: 'Arapey', serif;
+}
+
 #appointmentsContainer{
   flex-grow: 1;
   width: 100%;
@@ -28,6 +33,7 @@ html, body{
 
 #servicesLink {
   background-color: var(--color3);
+  margin-top: 20px;
 }
 
 #appointmentLink{
@@ -36,4 +42,9 @@ html, body{
 
 #appointmentsSignInButton {
   background-color: #2196f3;
+}
+
+p{
+  color: rgba(128, 128, 128, 0.479);
+  margin: 10px auto;
 }

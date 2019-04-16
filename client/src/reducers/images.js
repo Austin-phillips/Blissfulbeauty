@@ -3,7 +3,13 @@ const images = (state = [], action) => {
     case 'GET_IMAGES':
       return action.images
     case 'ADD_IMAGE':
-      return [...state, action.image]
+      let newState = state;
+      let processed = 0
+       action.images.forEach( i => {
+        newState.push(i)
+        processed++
+      })
+      return processed === action.images.length ? newState : state
     case 'DELETE_IMAGE':
       return state.filter(image => image.id !== action.id)
     default:

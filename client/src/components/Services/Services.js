@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import ServiceCard from './ServiceCard';
 import Typography from '@material-ui/core/Typography';
 import './Service.css';
 import { ROLE_URL } from '../../Secrets/env';
 import { connect } from 'react-redux';
 import CreateService from './CreateService';
+import { Divider } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -25,15 +25,12 @@ function Services(props) {
 
   return (
     <div id="servicesContainer">
-      {/* <Typography className={classes.header} align='center' variant="h2" gutterBottom>
+      <Typography id="servicesHeader" align='center' variant="h4" gutterBottom>
         Services
-      </Typography>  */}
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-          {user.isAuthenticated && role[0] === 'admin' ? <CreateService /> : null}
-          <ServiceCard location={location.pathname} />
-        </Grid>
-      </Grid>
+      </Typography> 
+      <Divider id="servicesDivider" />
+      {user.isAuthenticated && role[0] === 'admin' ? <CreateService /> : null}
+      <ServiceCard location={location.pathname} />
     </div>
   );
 }
