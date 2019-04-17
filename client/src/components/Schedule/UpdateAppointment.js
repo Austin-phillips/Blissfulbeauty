@@ -33,6 +33,7 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none',
+    borderRadius: '20px'
   },
   container: {
     display: 'flex',

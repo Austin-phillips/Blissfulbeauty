@@ -27,7 +27,7 @@ class Appointments extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <div id='table'>
-              <Typography id="scheduleHeader" align='left' variant="h4" gutterBottom>
+              <Typography id="scheduleHeader" align='center' variant="h4" gutterBottom>
                 Schedule
               </Typography>
               <Divider />

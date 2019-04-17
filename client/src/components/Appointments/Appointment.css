@@ -43,8 +43,3 @@ html, body{
 #appointmentsSignInButton {
   background-color: #2196f3;
 }
-
-p{
-  color: rgba(128, 128, 128, 0.479);
-  margin: 10px auto;
-}

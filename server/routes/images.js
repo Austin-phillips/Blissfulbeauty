@@ -21,25 +21,32 @@ router.get('/', (request, response, next) => {
 });
 
 // Post a new image to cloudinary
-router.post('/', upload.single('image'), (request, response, next) => {
-  const file = request.file.path
+router.post('/', upload.array('image', 25), (request, response, next) => {
+  const file = request.files
+  const rows = []
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
   });
+  file.forEach(f => {
+    cloudinary.uploader.upload(f.path, { angle: "exif" }, function (error, result) { 
+      pool.query(
+        'INSERT INTO images(url) VALUES($1) RETURNING *',
+        [result.secure_url],
+        (err, res) => {
+          if (err) return next(err);
 
-  cloudinary.uploader.upload(file, { angle: "exif" }, function (error, result) { 
-    pool.query(
-      'INSERT INTO images(url) VALUES($1) RETURNING *',
-      [result.secure_url],
-      (err, res) => {
-        if (err) return next(err);
+          rows.push(res.rows[0])
+          if (rows.length === file.length) {
+            response.json(rows)
+          }
+          // response.json(res.rows[0]);
+        }
+      )
+     });
+  })
 
-        response.json(res.rows[0]);
-      }
-    )
-   });
 })
 
 // Delete an image

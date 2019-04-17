@@ -73,7 +73,7 @@ class ServiceCard extends React.Component {
     const { classes, user, services } = this.props;
     return services.map(s => {
       return(
-        <Grid item xs={12} sm={6}>
+        <Grid key={s.id} item xs={12} sm={6}>
           <Card id='ServiceCard' key={s.id} className={classes.card}>
             <CardActionArea>
               <CardContent>
