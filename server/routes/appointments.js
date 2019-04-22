@@ -49,20 +49,20 @@ router.post('/', (request, response, next) => {
       response.json(res.rows);
     }
   );
-  // client.messages
-  //   .create({
-  //     body: `Thank you for booking. Your ${service} is at ${time} on ${date}. To make changes, please contact Jaiden at (801) 822-9174.`,
-  //     from: '+13852478056',
-  //     to: filteredNumber
-  //   })
-  //   .then(message => console.log(message.sid))
-  // client.messages
-  //   .create({
-  //     body: `${first} ${last} booked an appointment. Details: service: ${service}, date: ${date} at ${time}`,
-  //     from: '+13852478056',
-  //     to: '8019799538'
-  //   })
-  //   .then(message => console.log(message.sid));
+  client.messages
+    .create({
+      body: `Thank you for booking. Your ${service} is at ${time} on ${date}. To make changes, please contact Jaiden at (801) 822-9174.`,
+      from: '+13852478056',
+      to: filteredNumber
+    })
+    .then(message => console.log(message.sid))
+  client.messages
+    .create({
+      body: `${first} ${last} booked an appointment. Details: service: ${service}, date: ${date} at ${time}`,
+      from: '+13852478056',
+      to: '8019799538'
+    })
+    .then(message => console.log(message.sid));
 });
 
 // Edit appointments
