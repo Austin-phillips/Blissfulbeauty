@@ -76,7 +76,7 @@ class CreateService extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false, name: '', price: '', description: '', length: '' });
 
   };
 
@@ -88,7 +88,7 @@ class CreateService extends React.Component {
     const { dispatch } = this.props;
     const { name, price, length, description } = this.state;
     dispatch(addService({ name, price, length, description }));
-    this.setState({ open: false });
+    this.setState({ open: false, name: '', price: '', description: '', length: '' });
   }
 
   render() {

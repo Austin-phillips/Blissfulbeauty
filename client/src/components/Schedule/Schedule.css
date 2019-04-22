@@ -6,3 +6,11 @@
   margin: 50px auto 20px auto;
   font-family: 'Arapey', serif;
 }
+
+#searchField{
+  margin-left: 20px
+}
+
+#scheduleSaveButton{
+  background-color: #2196f3;
+}

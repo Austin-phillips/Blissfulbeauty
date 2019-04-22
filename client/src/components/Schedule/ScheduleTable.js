@@ -9,11 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import moment from 'moment';
-import EventIcon from '@material-ui/icons/Event';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import UpdateAppointment from './UpdateAppointment';
-import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 import { connect } from 'react-redux';
@@ -26,6 +24,7 @@ const styles = theme => ({
     width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    borderRadius: '20px'
   },
   table: {
     minWidth: 350,
@@ -120,31 +119,28 @@ class AppointmentsTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <TextField
-          id="standard-name"
-          label="Search"
-          className={classes.textField}
-          value={search}
-          onChange={this.handleChange('search')}
-          margin="normal"
-        />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <DatePicker
-            margin="normal"
-            label="Date"
-            value={selectedDate}
-            onChange={this.handleDateChange}
+        <div id="searchField">
+          <TextField
+            id="standard-name"
+            label="Search"
             className={classes.textField}
+            value={search}
+            onChange={this.handleChange('search')}
+            margin="normal"
           />
-        </MuiPickersUtilsProvider>
-        <IconButton className={classes.button} onClick={() => this.setState({ date: '', selectedDate: null, search: ''})} aria-label="Clear">
-          <ClearIcon />
-        </IconButton>
-        <Link id="scheduleLink" to='/services'>
-          <IconButton className={classes.button} aria-label="Book">
-            <EventIcon />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker
+              margin="normal"
+              label="Date"
+              value={selectedDate}
+              onChange={this.handleDateChange}
+              className={classes.textField}
+            />
+          </MuiPickersUtilsProvider>
+          <IconButton className={classes.button} onClick={() => this.setState({ date: '', selectedDate: null, search: ''})} aria-label="Clear">
+            <ClearIcon />
           </IconButton>
-        </Link>
+        </div>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -176,4 +172,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(AppointmentsTable)));
+export default connect(mapStateToProps)(withStyles(styles)(AppointmentsTable));

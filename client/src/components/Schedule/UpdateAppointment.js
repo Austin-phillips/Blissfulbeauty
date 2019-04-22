@@ -29,6 +29,8 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     width: '80%',
+    maxHeight: '60vh',
+    overflow: 'auto',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
@@ -115,39 +117,142 @@ class UpdateAppointment extends React.Component {
         time['disabled'] = false
       }
     })
-    this.setState({ selectedDate: selectedDate });
+    this.setState({ selectedDate: selectedDate, formattedTime: '' });
     this.HandleDisabled(selectedDate)
   };
 
   HandleDisabled = (date) => {
     const { appointments } = this.props;
+    const last = available.length - 1
+    const { length } = this.state;
 
     appointments.forEach((app) => available.forEach((time, index, array) => {
-      var hour = array[index + 1]
-      var hourhalf = array[index + 2]
-      var twohour = array[index + 3]
-      var twohourhalf = array[index + 4]
 
+      var half = index + 1 <= last ? array[index + 1] : time
+      var fourtyFive = index + 2 <= last ? array[index + 2] : time
+      var hour = index + 3 <= last ? array[index + 3] : time
+      var hourFifteen = index + 4 <= last ? array[index + 4] : time
+      var hourHalf = index + 5 <= last ? array[index + 5] : time
+      var hourfourtyFive = index + 6 <= last ? array[index + 6] : time
+      var twoHour = index + 7 <= last ? array[index + 7] : time
+      var twoHourFifteen = index + 8 <= last ? array[index + 8] : time
+      var twoHourHalf = index + 9 <= last ? array[index + 9] : time
+      var backHalf = index - 1 >= 0 ? array[index - 1] : time
+      var backFourtyFive = index - 2 >= 0 ? array[index - 2] : time
+      var backHour = index - 3 >= 0 ? array[index - 3] : time
+      var backHourFifteen = index - 4 >= 0 ? array[index - 4] : time
+      var backHourHalf = index - 5 >= 0 ? array[index - 5] : time
+      var backHourfourtyFive = index - 6 >= 0 ? array[index - 6] : time
+      var backTwoHour = index - 7 >= 0 ? array[index - 7] : time
+      var backTwoHourFifteen = index - 8 >= 0 ? array[index - 8] : time
+      var backTwoHourHalf = index - 9 >= 0 ? array[index - 9] : time
+
+      function checkCurrentLength() {
+        if (length === 30) {
+          return (
+            backHalf['disabled'] = true
+          )
+        } else if (length === 60) {
+          return (
+            backHalf['disabled'] = true,
+            backFourtyFive['disabled'] = true,
+            backHour['disabled'] = true
+          )
+        } else if (length === 90) {
+          return (
+            backHalf['disabled'] = true,
+            backFourtyFive['disabled'] = true,
+            backHour['disabled'] = true,
+            backHourFifteen['disabled'] = true,
+            backHourHalf['disabled'] = true
+          )
+        } else if (length === 120) {
+          return (
+            backHalf['disabled'] = true,
+            backFourtyFive['disabled'] = true,
+            backHour['disabled'] = true,
+            backHourFifteen['disabled'] = true,
+            backHourHalf['disabled'] = true,
+            backHourfourtyFive['disabled'] = true,
+            backTwoHour['disabled'] = true
+          )
+        } else if (length === 150) {
+          return (
+            backHalf['disabled'] = true,
+            backFourtyFive['disabled'] = true,
+            backHour['disabled'] = true,
+            backHourFifteen['disabled'] = true,
+            backHourHalf['disabled'] = true,
+            backHourfourtyFive['disabled'] = true,
+            backTwoHour['disabled'] = true,
+            backTwoHourFifteen['disabled'] = true,
+            backTwoHourHalf['disabled'] = true
+          )
+        }
+      }
       if (app.date === moment(date).format("MM/DD/YY") && app.time === time['text']) {
-        if (app.length === 60) {
+        if (app.length === 30) {
           time['disabled'] = true
+          half['disabled'] = true
+          checkCurrentLength()
+        } else if (app.length === 60) {
+          time['disabled'] = true
+          half['disabled'] = true
+          fourtyFive['disabled'] = true
           hour['disabled'] = true
+          checkCurrentLength()
         } else if (app.length === 90) {
           time['disabled'] = true
+          half['disabled'] = true
+          fourtyFive['disabled'] = true
           hour['disabled'] = true
-          hourhalf['disabled'] = true
+          hourFifteen['disabled'] = true
+          hourHalf['disabled'] = true
+          checkCurrentLength()
         } else if (app.length === 120) {
           time['disabled'] = true
+          half['disabled'] = true
+          fourtyFive['disabled'] = true
           hour['disabled'] = true
-          hourhalf['disabled'] = true
-          twohour['disabled'] = true
-        } else if (app.length === 180) {
+          hourFifteen['disabled'] = true
+          hourHalf['disabled'] = true
+          hourfourtyFive['disabled'] = true
+          twoHour['disabled'] = true
+          checkCurrentLength()
+        } else if (app.length === 150) {
           time['disabled'] = true
+          half['disabled'] = true
+          fourtyFive['disabled'] = true
           hour['disabled'] = true
-          hourhalf['disabled'] = true
-          twohour['disabled'] = true
-          twohourhalf['disabled'] = true
+          hourFifteen['disabled'] = true
+          hourHalf['disabled'] = true
+          hourfourtyFive['disabled'] = true
+          twoHour['disabled'] = true
+          twoHourFifteen['disabled'] = true
+          twoHourHalf['disabled'] = true
+          checkCurrentLength()
         } else {
+          time['disabled'] = true
+          checkCurrentLength()
+        }
+      } else if (moment(date).format('ddd') === 'Sun') {
+        if (time.disabled === false) {
+          time['disabled'] = true
+        }
+      } else if (moment(date).format('ddd') === 'Tue') {
+        if (time.disabled === false) {
+          time['disabled'] = true
+        }
+      } else if (moment(date).format('ddd') === 'Wed') {
+        if (time.disabled === false) {
+          time['disabled'] = true
+        }
+      } else if (moment(date).format('ddd') === 'Fri') {
+        if (time.disabled === false) {
+          time['disabled'] = true
+        }
+      } else if (moment(date).format('ddd') === 'Sat') {
+        if (time.disabled === false) {
           time['disabled'] = true
         }
       }
@@ -187,15 +292,15 @@ class UpdateAppointment extends React.Component {
     if (status === '') {
       return(
         <div>
-          <Button disabled id='bookButton' onClick={() => this.handleSubmit()}>Save</Button>
-          <Button id='bookButton' onClick={() => this.handleClose()}>Close</Button>
+          <Button disabled id='scheduleSaveButton' onClick={() => this.handleSubmit()}>Save</Button>
+          <Button id='cancelButton' onClick={() => this.handleClose()}>Close</Button>
         </div>
       )
     } else {
       return (
         <div>
-          <Button id='bookButton' onClick={() => this.handleSubmit()}>Save</Button>
-          <Button id='bookButton' onClick={() => this.handleClose()}>Close</Button>
+          <Button id='scheduleSaveButton' onClick={() => this.handleSubmit()}>Save</Button>
+          <Button id='cancelButton' onClick={() => this.handleClose()}>Close</Button>
         </div>
       )
     }

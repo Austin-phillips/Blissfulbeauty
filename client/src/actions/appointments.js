@@ -9,7 +9,6 @@ export const getAppointments = () => {
         dispatch({ type: 'GET_APPOINTMENTS', appointments: res.data })
       })
       .catch(err => {
-        dispatch(setFlash('Error loading appointments, please try again.', 'error'))
       })
   }
 }

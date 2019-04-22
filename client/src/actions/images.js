@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { setFlash } from './flash';
 import { BASE_URL } from '../Secrets/env';
-import { finished } from 'stream';
 
 export const getImages = () => {
   return dispatch => {
@@ -38,7 +37,7 @@ export const addImage = (images, callback) => {
       data.append('image', i);
       processed++
       if ( processed === images.length){
-          axios.post(`${BASE_URL}/api/images`, data)
+        axios.post(`${BASE_URL}/api/images`, data)
             .then(res => {
               dispatch({ type: 'ADD_IMAGE', images: res.data })
               dispatch(setFlash('Successfully Added Image.', 'success'));

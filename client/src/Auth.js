@@ -8,7 +8,7 @@ class Auth {
       domain: AUTH0_DOMAIN,
       audience: `https://${AUTH0_DOMAIN}/userinfo`,
       clientID: AUTH0_CLIENT_ID,
-      redirectUri: 'http://localhost:3000/callback',
+      redirectUri: 'http://blissfulbeauty.us/callback',
       responseType: 'id_token',
       scope: 'openid profile email'
     });
@@ -59,7 +59,7 @@ class Auth {
 
   signOut() {
     this.auth0.logout({
-      returnTo: 'http://localhost:3000',
+      returnTo: 'http://blissfulbeauty.us',
       clientID: AUTH0_CLIENT_ID,
     });
   };

@@ -48,6 +48,7 @@ h1{
 
 #topBookButton{
   background-color: var(--color3);
+  margin-top: 50px;
 }
 
 #homePageLinks{
@@ -75,7 +76,7 @@ h1{
 
 #aboutMeButton{
   background-color: var(--color3);
-  margin-top: 20px;
+  margin-top: 70px;
 }
 
 /* Gallery */

@@ -43,3 +43,9 @@ html, body{
 #appointmentsSignInButton {
   background-color: #2196f3;
 }
+
+#appointmentSlideText{
+  color: grey;
+  margin-top: 20px;
+  font-size: .8em
+}

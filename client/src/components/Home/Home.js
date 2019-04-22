@@ -22,6 +22,10 @@ const styles = theme => ({
 
 class Home extends Component {
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { classes } = this.props;
     return(
@@ -47,11 +51,15 @@ class Home extends Component {
                       About Me
                     </Typography>
                     <Typography id="aboutMeBody" variant="body1" gutterBottom align='justify'>
-                      body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                      unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                      dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam. body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                      unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                      dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                      Hello there! My name is Jaiden Kallas and I’m the founder of Blissful Beauty.
+                      From a young age, I was drawn to the beauty industry. I love anything to do with the face;
+                      from makeup to eyelash extensions, microblading and waxing. Blissful Beauty was created to 
+                      encourage others to find their own confidence. Bliss means perfect happiness or great joy. 
+                      I believe that happiness is a product of how you feel within. When we aren’t happy in our 
+                      own skin, we experience temporary happiness. When you feel beautiful in your own skin, 
+                      you gain confidence. Confidence has the power to change frequencies within a room and 
+                      spread happiness to others around you. Lets work together to build each other up, have great 
+                      conversation and feel beautiful in our own skin.
                     </Typography>
                     <Link id='homePageLinks' to='/services'><Button id="aboutMeButton">View Services</Button></Link>
                   </div>

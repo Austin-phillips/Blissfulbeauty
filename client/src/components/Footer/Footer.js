@@ -12,12 +12,13 @@ class Footer extends Component {
           <div id="footerContact">
             Contact Information<br/>
             <div id="contactOptions">
-              kallasbeauty101@gmail.com 
+              <a id="mailTo" href="mailto:blissful4beauty@gmail.com">blissful4beauty@gmail.com </a><br/>
+              <a id="mailTo" href="https://www.beautycounter.com/jaidenkallas?countryid=1&lang=en" target="_blank" rel="noopener noreferrer">Beauty Counter</a>
             </div>
           </div>
           <div id="footerSocials">
-            <a href="https://instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/kallas.beauty/?ref=br_rs" target="_blank"><i class="fab fa-facebook-square"></i></a>
+            <a href="https://www.instagram.com/kallas.beauty/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/kallas.beauty/?ref=br_rs" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-square"></i></a>
           </div>
           <div id="footerLinks">
             <p>

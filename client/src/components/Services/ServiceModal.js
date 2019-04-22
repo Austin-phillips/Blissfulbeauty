@@ -37,7 +37,9 @@ const styles = theme => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
     outline: 'none',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    maxHeight: '60vh',
+    overflow: 'auto',
   },
   container: {
     display: 'flex',
@@ -46,7 +48,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 250,
+    width: 300,
   },
   dense: {
     marginTop: 19,
@@ -58,7 +60,7 @@ const styles = theme => ({
     width: '60%',
   },
   root: {
-    width: '90%',
+    width: '100%',
   },
   button: {
     marginTop: theme.spacing.unit,
@@ -161,7 +163,7 @@ class ServiceModal extends React.Component {
           <TextField
             id="standard-read-only-input"
             label="Email"
-            defaultValue={email}
+            value={email}
             className={classes.textField}
             margin="normal"
           />
@@ -213,8 +215,10 @@ class ServiceModal extends React.Component {
     case 2:
       return (
         <div>
-          <p>{`Name: ${first} ${last}, Phone Number: ${number} `}</p>
-          <p>{`Service: ${service} is at ${time} on ${moment(selectedDate).format('MM/DD/YY')}.`}</p>
+          <p>{`Name: ${first} ${last}`}</p>
+          <p>{`Phone Number: ${number} `}</p>
+          <p>{`Service: ${service}`}</p>
+          <p>{`Date: ${moment(selectedDate).format('MM/DD/YY')} at ${time}.`}</p>
           <p>{`Price: $${price}.00`}</p>
           <p>{`Length: ${length} min`}</p>
         </div>
@@ -470,6 +474,7 @@ class ServiceModal extends React.Component {
             </Button>
                 </Paper>
               )}
+              <Button id="cancelButton" onClick={this.handleClose}>Cancel</Button>
             </div>
           </div>
         </Modal>
