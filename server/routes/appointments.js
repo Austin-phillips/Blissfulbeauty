@@ -33,10 +33,10 @@ router.get('/:uid', (request, response, next) => {
 
 // Create new appointment
 router.post('/', (request, response, next) => {
+  const { date, formattedTime, notes, service, first, last, email, length, uid, price, filteredNumber } = request.body.appointment;
   const accountSid = process.env.TWILIO_SID;
   const authToken = process.env.TWILIO_TOKEN;
   const client = require('twilio')(accountSid, authToken);
-  const { date, formattedTime, notes, service, first, last, email, length, uid, price, filteredNumber } = request.body.appointment;
 
   pool.query(
     `INSERT INTO appointments(date, time, notes, service, first, last, email, length, uid, price, number) 
@@ -49,20 +49,21 @@ router.post('/', (request, response, next) => {
       response.json(res.rows);
     }
   );
+
   client.messages
     .create({
-      body: `Thank you for booking. Your ${service} is at ${time} on ${date}. To make changes, please contact Jaiden at (801) 822-9174.`,
+      body: `Thank you for booking. Your appointment is on ${date} at ${formattedTime}. To make any changes, please contact Jaiden at (801) 822-9174.`,
       from: '+13852478056',
       to: filteredNumber
     })
     .then(message => console.log(message.sid))
   client.messages
     .create({
-      body: `${first} ${last} booked an appointment. Details: service: ${service}, date: ${date} at ${time}`,
+      body: `${first} ${last} booked an appointment on ${date} at ${formattedTime}`,
       from: '+13852478056',
-      to: '8019799538'
+      to: '8018229174'
     })
-    .then(message => console.log(message.sid));
+    .then(message => console.log(message.sid))
 });
 
 // Edit appointments

@@ -214,7 +214,7 @@ class ServiceModal extends React.Component {
       )
     case 2:
       return (
-        <div>
+        <div id="serviceModalText">
           <p>{`Name: ${first} ${last}`}</p>
           <p>{`Phone Number: ${number} `}</p>
           <p>{`Service: ${service}`}</p>
@@ -469,12 +469,9 @@ class ServiceModal extends React.Component {
                 <Paper square elevation={0} className={classes.resetContainer}>
                   <Typography>{`Thank You ${first} ${last} for booking.`}</Typography>
                   <Typography>{`You will recieve a text shortly with your appt. information.`}</Typography>
-                  <Button onClick={this.handleClose} className={classes.button}>
-                    Close
-            </Button>
                 </Paper>
               )}
-              <Button id="cancelButton" onClick={this.handleClose}>Cancel</Button>
+              <Button id="cancelButton" onClick={this.handleClose}>Close</Button>
             </div>
           </div>
         </Modal>

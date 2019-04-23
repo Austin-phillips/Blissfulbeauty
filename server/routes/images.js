@@ -30,7 +30,7 @@ router.post('/', upload.array('image', 25), (request, response, next) => {
     api_secret: process.env.CLOUDINARY_API_SECRET
   });
   file.forEach(f => {
-    cloudinary.uploader.upload(f.path, { height: 300, crop: "scale" }, function (error, result) { 
+    cloudinary.uploader.upload(f.path, { angle: "exif" }, function (error, result) { 
       pool.query(
         'INSERT INTO images(url) VALUES($1) RETURNING *',
         [result.secure_url],

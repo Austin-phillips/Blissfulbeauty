@@ -46,3 +46,7 @@
     background-color: #4caf50;
     margin-left: 85%;
 }
+
+#serviceModalText p{
+  font-size: .9em
+}
