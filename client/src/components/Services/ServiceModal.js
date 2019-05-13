@@ -120,6 +120,7 @@ class ServiceModal extends React.Component {
     last: '',
     email: this.props.user.profile.email,
     uid: this.props.user.profile.sub,
+    dayOfWeek: '',
     notes: '',
     number: '',
     activeStep: 0,
@@ -241,13 +242,21 @@ class ServiceModal extends React.Component {
   };
 
   handleDateChange = selectedDate => {
+    const dayOfWeek = moment(selectedDate).format('dddd')
+    const daysOff = ["Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"]
     available.forEach((time) => {
       if (time.disabled === true) {
         time['disabled'] = false
       }
     })
-    this.setState({ selectedDate: selectedDate, time: '' });
-    this.HandleDisabled(selectedDate)
+    this.setState({ selectedDate: selectedDate, time: ''});
+    if (daysOff.indexOf(dayOfWeek) !== -1) {
+      available.forEach((time) => {
+        time['disabled'] = true;
+      })
+    } else {
+      this.HandleDisabled(selectedDate)
+    }  
   };
 
   HandleDisabled = (date) => {
@@ -363,26 +372,6 @@ class ServiceModal extends React.Component {
         } else {
           time['disabled'] = true
           checkCurrentLength()
-        }
-      } else if ( moment(date).format('ddd') === 'Sun') {
-        if (time.disabled === false) {
-          time['disabled'] = true
-        }  
-      } else if (moment(date).format('ddd') === 'Tue') {
-        if (time.disabled === false) {
-          time['disabled'] = true
-        }
-      } else if (moment(date).format('ddd') === 'Wed') {
-        if (time.disabled === false) {
-          time['disabled'] = true
-        }
-      } else if (moment(date).format('ddd') === 'Fri') {
-        if (time.disabled === false) {
-          time['disabled'] = true
-        }
-      } else if (moment(date).format('ddd') === 'Sat') {
-        if (time.disabled === false) {
-          time['disabled'] = true
         }
       }
     }))
